@@ -5,6 +5,7 @@ import {
   Collection,
   Events,
   Interaction,
+  MessageType,
   REST,
   Routes,
   Snowflake
@@ -34,6 +35,15 @@ export class Bot {
 
       this.registerSlashCommands();
     });
+
+    this.client.on("messageCreate", (message) => {
+      if (message.author.bot) return;
+      if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == MessageType.Reply) return;
+      
+      if (message.content.startsWith(`<@962308793818030084>`) || message.content.startsWith(`<@!962308793818030084>`)) {
+        message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
+      }
+    })
 
     this.client.on("warn", (info) => console.log(info));
     this.client.on("error", console.error);
