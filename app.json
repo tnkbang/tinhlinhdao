@@ -1,0 +1,7 @@
+{
+  "name": "tinhlinhdao",
+  "description": "Discord Bot built with discord.js for Luan Hoi - Tuyet Tinh Dao",
+  "repository": "https://github.com/tnkbang/tinhlinhdao",
+  "logo": "",
+  "keywords": ["discord", "discordjs", "typescript", "music", "bot"]
+}
