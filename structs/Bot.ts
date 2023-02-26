@@ -40,7 +40,7 @@ export class Bot {
       if (message.author.bot) return;
       if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == MessageType.Reply) return;
       
-      if (message.content.startsWith(`<@962308793818030084>`) || message.content.startsWith(`<@!962308793818030084>`)) {
+      if (message.content.startsWith(`<@${this.client.user?.id}>`) || message.content.startsWith(`<@!${this.client.user?.id}>`)) {
         message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
       }
     })
