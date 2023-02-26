@@ -1,5 +1,5 @@
 {
-  "TOKEN": "OTYyMzA4NzkzODE4MDMwMDg0.GNQytH.tsBCS3wBeI3Kt6Et_RihGGe-ZDm55PjIN18OZk",
+  "TOKEN": "",
   "MAX_PLAYLIST_SIZE": 10,
   "PREFIX": "t",
   "PRUNING": false,
