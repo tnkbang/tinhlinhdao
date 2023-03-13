@@ -9,7 +9,7 @@
 		"description": "Liệt kê tất cả đoạn âm thanh có sẵn"
 	},
 	"help": {
-		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tỏ của nó.",
+		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó.",
 		"embedTitle": "{botname} Help",
 		"embedDescription": "Hiện thị tất cả câu lệnh sẵn có."
 	},
@@ -74,7 +74,7 @@
 		"increasedVolume": "<@{author}> 🔊 đã tăng âm lượng, âm lượng hiện tại là {volume}%",
 		"loopSong": "<@{author}> chế độ lặp lại hiện đang {loop}",
 		"stopSong": "<@{author}> ⏹ đã dừng phát nhạc!",
-		"leaveChannel": "Đang rời khỏi kênh thoại...",
+		"leaveChannel": "Đã rời khỏi kênh thoại...",
 		"songNotFound": "Không thể tìm thấy đoạn âm thanh",
 		"songAccessErr": "Video bị giới hạn độ tuổi, ở chế độ riêng tư hoặc không khả dụng!"
 	},
@@ -92,7 +92,7 @@
 		"cantJoinChannel": "Không thể tham gia kênh thoại: {error}"
 	},
 	"pruning": {
-		"description": "Tùy chính xóa tin nhắn của bot",
+		"description": "Tùy chỉnh xóa tin nhắn của bot",
 		"errorWritingFile": "Hiện đang có lỗi khi thực hiện thay đổi trên máy chủ.",
 		"result": "Tự động xóa tin nhắn hiện đang {result}"
 	},
