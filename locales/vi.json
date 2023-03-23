@@ -171,5 +171,11 @@
 	"uptime": {
 		"description": "Kiểm tra lần cập nhật gần nhất.",
 		"result": "Cập nhật: `{days} ngày, {hours} giờ, {minutes} phút, {seconds} giây.`"
+	},
+	"sleep": {
+		"description": "Tính chu kỳ ngủ.",
+		"strInfo": "Bây giờ là: **{time}**. Nếu bạn ngủ ngay bây giờ bạn nên thức dậy vào:",
+		"strContent": "⏰ **{time}** cho {cycle} chu kỳ - ngủ {sleeping}",
+		"result": "Lệnh đang cập nhật\nVui lòng sử dụng lại sau!"
 	}
 }
