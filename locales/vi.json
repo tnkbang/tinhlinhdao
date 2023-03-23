@@ -169,6 +169,7 @@
 		"errorCommand": "Có lỗi xảy ra khi đang cố gắng thực hiện yêu cầu của bạn, vui lòng thử lại sau ít phút."
 	},
 	"uptime": {
-		"description": "Check the uptime"
+		"description": "Kiểm tra lần cập nhật gần nhất.",
+		"result": "Cập nhật: `{days} ngày, {hours} giờ, {minutes} phút, {seconds} giây.`"
 	}
 }
