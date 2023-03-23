@@ -4,31 +4,8 @@ import { config } from "./config";
 
 i18n.configure({
   locales: [
-    "ar",
-    "cs",
-    "de",
-    "el",
     "en",
-    "es",
-    "fa",
-    "fr",
-    "id",
-    "it",
-    "ja",
-    "ko",
-    "mi",
-    "nl",
-    "pl",
-    "pt_br",
-    "ru",
-    "sv",
-    "th",
-    "tr",
-    "uk",
-    "vi",
-    "zh_cn",
-    "zh_sg",
-    "zh_tw"
+    "vi"
   ],
   directory: join(__dirname, "..", "locales"),
   defaultLocale: "vi",
