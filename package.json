@@ -3,7 +3,7 @@
   "version": "1.0",
   "description": "Discord bot built with discord.js for Luan Hoi - Tuyet Tinh Dao server.",
   "main": "index.ts",
-  "author": "TNK Bang <trieukhanhbang123@gmail.com>",
+  "author": "TNK Bang <tnkbang.dev@gmail.com>",
   "private": true,
   "homepage": "https://github.com/tnkbang/tinhlinhdao",
   "repository": "github:tnkbang/tinhlinhdao",
