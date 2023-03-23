@@ -7,7 +7,10 @@ function getTime(date: Date) {
     const minutes = date.getMinutes()
     const ampm = hours >= 12 ? "PM" : "AM"
 
-    return hours + ":" + minutes + " " + ampm
+    const hh = hours.toString().length < 2 ? "0" + hours.toString() : hours
+    const mm = minutes.toString().length < 2 ? "0" + minutes.toString() : minutes
+
+    return hh + ":" + mm + " " + ampm
 }
 
 function addMinutes(date: Date, minutes: number) {
@@ -17,31 +20,43 @@ function addMinutes(date: Date, minutes: number) {
 
 function getStringHours(cycle: number) {
     switch (cycle) {
-        case 3: return " bốn tiếng rưỡi."
-        case 4: return " sáu tiếng."
-        case 5: return " bảy tiếng rưỡi."
+        case 3: return "bốn tiếng rưỡi."
+        case 4: return "sáu tiếng."
+        case 5: return "bảy tiếng rưỡi."
     }
+}
+
+function getLocalDateTime() {
+    const strTime = new Date().toLocaleString('en-US', {
+        timeZone: 'Asia/Ho_Chi_Minh'
+    })
+    return new Date(strTime)
+}
+
+function getContentSleeping(dateTime: Date) {
+    let strResult = ""
+
+    for (let i = 3; i < 6; i++) {
+        const tempDTime = new Date(dateTime)
+        const minutes = (90 * i) + 14
+        const cycleTime = addMinutes(tempDTime, minutes)
+        const perTime = getStringHours(i)
+
+        strResult += '\n'
+        strResult += i18n.__mf("sleep.strContent", { time: getTime(cycleTime), cycle: i, sleeping: perTime })
+    }
+
+    return strResult
 }
 
 export default {
     data: new SlashCommandBuilder().setName("sleep").setDescription(i18n.__("sleep.description")),
     execute(interaction: ChatInputCommandInteraction) {
-        const strTime = new Date().toLocaleString('en-US', {
-            timeZone: 'Asia/Ho_Chi_Minh'
-        })
-        const dateTime = new Date(strTime)
+        const dateTime = getLocalDateTime()
 
         let title = i18n.__mf("sleep.strInfo", { time: getTime(dateTime) })
         let strResult = title
-
-        for (let i = 3; i < 6; i++) {
-            const minutes = (90 * i) + 14
-            const cycleTime = addMinutes(dateTime, minutes)
-            const perTime = getStringHours(i)
-
-            strResult += '\n'
-            strResult += i18n.__mf("sleep.strContent", { time: getTime(cycleTime), cycle: i, sleeping: perTime })
-        }
+        strResult += getContentSleeping(dateTime)
 
         return interaction
             .reply({ content: strResult })
