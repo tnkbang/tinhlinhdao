@@ -10,6 +10,7 @@ import { bot } from "../index";
 import { MusicQueue } from "../structs/MusicQueue";
 import { Playlist } from "../structs/Playlist";
 import { Song } from "../structs/Song";
+import { randomColor } from "../utils/color";
 import { i18n } from "../utils/i18n";
 
 export default {
@@ -86,7 +87,7 @@ export default {
       .setTitle(`${playlist.data.title}`)
       .setDescription(playlist.videos.map((song: Song, index: number) => `${index + 1}. ${song.title}`).join("\n"))
       .setURL(playlist.data.url!)
-      .setColor("#F8AA2A")
+      .setColor(randomColor())
       .setTimestamp();
 
     if (playlistEmbed.data.description!.length >= 2048)

@@ -1,6 +1,7 @@
 import { CommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { i18n } from "../utils/i18n";
 import { bot } from "../index";
+import { randomColor } from "../utils/color";
 
 export default {
   data: new SlashCommandBuilder().setName("help").setDescription(i18n.__("help.description")),
@@ -10,7 +11,7 @@ export default {
     let helpEmbed = new EmbedBuilder()
       .setTitle(i18n.__mf("help.embedTitle", { botname: interaction.client.user!.username }))
       .setDescription(i18n.__("help.embedDescription"))
-      .setColor("#F8AA2A");
+      .setColor(randomColor());
 
     commands.forEach((cmd) => {
       helpEmbed.addFields({

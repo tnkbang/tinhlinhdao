@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { splitBar } from "string-progressbar";
 import { bot } from "../index";
+import { randomColor } from "../utils/color";
 import { i18n } from "../utils/i18n";
 
 export default {
@@ -19,7 +20,7 @@ export default {
     let nowPlaying = new EmbedBuilder()
       .setTitle(i18n.__("nowplaying.embedTitle"))
       .setDescription(`${song.title}\n${song.url}`)
-      .setColor("#F8AA2A");
+      .setColor(randomColor());
 
     if (song.duration > 0) {
       nowPlaying.addFields({
