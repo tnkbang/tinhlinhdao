@@ -10,7 +10,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("play")
     .setDescription(i18n.__("play.description"))
-    .addStringOption((option) => option.setName("song").setDescription(i18n.__("play.textSong")).setRequired(true)),
+    .addStringOption((option) => option.setName("song").setDescription(i18n.__("play.songDescription")).setRequired(true)),
   cooldown: 3,
   permissions: [
     PermissionsBitField.Flags.Connect,
