@@ -1,6 +1,5 @@
 import { bot } from './../index';
 import { ActivityType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-//import { bot } from "../index";
 import { i18n } from "../utils/i18n";
 import { config } from "../utils/config";
 
