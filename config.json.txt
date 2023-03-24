@@ -1,6 +1,7 @@
 {
   "TOKEN": "",
   "MAX_PLAYLIST_SIZE": 10,
+  "OWNER": "512093202841468928",
   "PREFIX": "t",
   "PRUNING": false,
   "LOCALE": "vi",

@@ -177,5 +177,10 @@
 		"strInfo": "Bây giờ là: **{time}**. Nếu bạn ngủ ngay bây giờ bạn nên thức dậy vào:",
 		"strContent": "⏰ **{time}** cho {cycle} chu kỳ - ngủ {sleeping}",
 		"result": "Lệnh đang cập nhật\nVui lòng sử dụng lại sau!"
+	},
+	"status": {
+		"description": "Đặt trạng thái cho bot.",
+		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
+		"result": "Đã đặt trạng thái cho bot thành công !"
 	}
 }

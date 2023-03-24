@@ -1,4 +1,5 @@
 import {
+  ActivityType,
   ApplicationCommandDataResolvable,
   ChatInputCommandInteraction,
   Client,
@@ -33,13 +34,18 @@ export class Bot {
     this.client.on("ready", () => {
       console.log(`${this.client.user!.username} ready!`);
 
+      client.user?.setActivity({
+        name: "/help",
+        type: ActivityType.Listening
+      })
+
       this.registerSlashCommands();
     });
 
     this.client.on("messageCreate", (message) => {
       if (message.author.bot) return;
       if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == MessageType.Reply) return;
-      
+
       if (message.content.startsWith(`<@${this.client.user?.id}>`) || message.content.startsWith(`<@!${this.client.user?.id}>`)) {
         message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
       }

@@ -8,6 +8,7 @@ try {
 } catch (error) {
   config = {
     TOKEN: process.env.TOKEN || "",
+    OWNER: process.env.OWNER || "",
     PREFIX: process.env.PREFIX || "t",
     MAX_PLAYLIST_SIZE: parseInt(process.env.MAX_PLAYLIST_SIZE!) || 10,
     PRUNING: process.env.PRUNING === "true" ? true : false,
