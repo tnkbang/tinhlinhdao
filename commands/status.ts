@@ -31,9 +31,9 @@ function getType(type: string | null) {
 export default {
     data: new SlashCommandBuilder().setName("status").setDescription(i18n.__("status.description"))
         .addStringOption((option) => option.setName("type")
-            .setDescription("Loại trạng thái").setRequired(true))
+            .setDescription(i18n.__("status.type")).setRequired(true))
         .addStringOption((option) => option.setName("value")
-            .setDescription("Mô tả trạng thái").setRequired(true)),
+            .setDescription(i18n.__("status.value")).setRequired(true)),
     execute(interaction: ChatInputCommandInteraction) {
         const ownerID = config.OWNER
         if (interaction.member?.user.id == ownerID) {
@@ -49,12 +49,12 @@ export default {
             })
 
             return interaction
-                .reply({ content: i18n.__mf("status.result") })
+                .reply({ content: i18n.__("status.result") })
                 .catch(console.error);
         }
 
         return interaction
-            .reply({ content: i18n.__mf("status.missingPermission") })
+            .reply({ content: i18n.__("status.missingPermission") })
             .catch(console.error);
     }
 };

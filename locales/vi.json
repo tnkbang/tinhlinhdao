@@ -64,6 +64,7 @@
 		"cantJoinChannel": "Không thể kết nối đến kênh thoại: {error}",
 		"queueEnded": "❌ Đã phát hết nhạc trong hàng đợi.",
 		"queueError": "Lỗi: {error}",
+		"textSong": "Url hoặc tên bài hát muốn phát",
 		"startedPlaying": "🎶 Bắt đầu phát: **{title}** {url}",
 		"skipSong": "<@{author}> ⏩ đã bỏ qua bài hát đang phát",
 		"pauseSong": "<@{author}> ⏸ đã tạm dừng phát nhạc!",
@@ -180,6 +181,8 @@
 	},
 	"status": {
 		"description": "Đặt trạng thái cho bot.",
+		"type": "Loại trạng thái",
+		"value": "Mô tả trạng thái",
 		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
 		"result": "Đã đặt trạng thái cho bot thành công !"
 	}
