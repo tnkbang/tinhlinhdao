@@ -77,7 +77,8 @@
 		"stopSong": "<@{author}> ⏹ đã dừng phát nhạc!",
 		"leaveChannel": "Đã rời khỏi kênh thoại...",
 		"songNotFound": "Không thể tìm thấy đoạn âm thanh",
-		"songAccessErr": "Video bị giới hạn độ tuổi, ở chế độ riêng tư hoặc không khả dụng!"
+		"songAccessErr": "Video bị giới hạn độ tuổi, ở chế độ riêng tư hoặc không khả dụng!",
+		"errorNoResults": "Không tìm thấy bài hát"
 	},
 	"playlist": {
 		"description": "Phát danh sách nhạc từ link YouTube",

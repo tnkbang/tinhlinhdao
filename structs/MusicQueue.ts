@@ -45,7 +45,15 @@ export class MusicQueue {
     this.player = createAudioPlayer({ behaviors: { noSubscriber: NoSubscriberBehavior.Play } });
     this.connection.subscribe(this.player);
 
+    const networkStateChangeHandler = (oldNetworkState: any, newNetworkState: any) => {
+      const newUdp = Reflect.get(newNetworkState, "udp");
+      clearInterval(newUdp?.keepAliveInterval);
+    };
+
     this.connection.on("stateChange" as any, async (oldState: VoiceConnectionState, newState: VoiceConnectionState) => {
+      Reflect.get(oldState, "networking")?.off("stateChange", networkStateChangeHandler);
+      Reflect.get(newState, "networking")?.on("stateChange", networkStateChangeHandler);
+
       if (newState.status === VoiceConnectionStatus.Disconnected) {
         if (newState.reason === VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
           try {
@@ -71,7 +79,7 @@ export class MusicQueue {
           if (this.connection.state.status !== VoiceConnectionStatus.Destroyed) {
             try {
               this.connection.destroy();
-            } catch {}
+            } catch { }
           }
         } finally {
           this.readyLock = false;
@@ -131,7 +139,7 @@ export class MusicQueue {
       if (this.connection.state.status !== VoiceConnectionStatus.Destroyed) {
         try {
           this.connection.destroy();
-        } catch {}
+        } catch { }
       }
       bot.queues.delete(this.interaction.guild!.id);
 
