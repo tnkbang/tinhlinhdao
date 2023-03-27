@@ -186,5 +186,7 @@
 		"value": "Mô tả trạng thái",
 		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
 		"result": "Đã đặt trạng thái cho bot thành công !"
-	}
+	},
+	"Invite me to your server!": "Invite me to your server!",
+	"Invite": "Invite"
 }

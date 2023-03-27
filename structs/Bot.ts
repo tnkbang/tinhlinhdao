@@ -60,10 +60,10 @@ export class Bot {
   private async registerSlashCommands() {
     const rest = new REST({ version: "9" }).setToken(config.TOKEN);
 
-    const commandFiles = readdirSync(join(__dirname, "..", "commands")).filter((file) => !file.endsWith(".map"));
+    const commandFiles = readdirSync(join(__dirname, "..", "commands", "slash")).filter((file) => !file.endsWith(".map"));
 
     for (const file of commandFiles) {
-      const command = await import(join(__dirname, "..", "commands", `${file}`));
+      const command = await import(join(__dirname, "..", "commands", "slash", `${file}`));
 
       this.slashCommands.push(command.default.data);
       this.slashCommandsMap.set(command.default.data.name, command.default);
