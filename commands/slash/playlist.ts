@@ -19,6 +19,6 @@ export default {
         PermissionsBitField.Flags.ManageMessages
     ],
     async execute(interaction: ChatInputCommandInteraction) {
-        setPlayList(interaction)
+        await setPlayList(interaction)
     }
 }

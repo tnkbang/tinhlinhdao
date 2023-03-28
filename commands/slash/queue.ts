@@ -11,6 +11,6 @@ export default {
     cooldown: 5,
     permissions: [PermissionsBitField.Flags.AddReactions, PermissionsBitField.Flags.ManageMessages],
     async execute(interaction: ChatInputCommandInteraction) {
-        setQueue(interaction)
+        await setQueue(interaction)
     }
 }
