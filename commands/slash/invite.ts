@@ -1,13 +1,11 @@
-import {
-    ChatInputCommandInteraction,
-    SlashCommandBuilder
-} from "discord.js";
+import { setInvite } from "../Helper";
 import { i18n } from "../../utils/i18n";
-import { setInvite } from "../helper/miscHelper";
+import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 export default {
     data: new SlashCommandBuilder().setName("invite").setDescription(i18n.__("invite.description")),
     execute(interaction: ChatInputCommandInteraction) {
-        setInvite(interaction)
+        let invite = setInvite()
+        return interaction.reply({ embeds: [invite.inviteEmbed], components: [invite.actionRow] }).catch(console.error);
     }
 }

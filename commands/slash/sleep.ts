@@ -1,5 +1,5 @@
+import { setSleep } from "../Helper"
 import { i18n } from "../../utils/i18n"
-import { setSleep } from "../helper/miscHelper"
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js"
 
 export default {

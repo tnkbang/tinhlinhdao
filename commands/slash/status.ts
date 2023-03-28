@@ -1,5 +1,5 @@
+import { setStatus } from "../Helper";
 import { i18n } from "../../utils/i18n";
-import { setStatus } from "../helper/miscHelper";
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 export default {

@@ -7,17 +7,16 @@ import {
     CommandInteraction,
     EmbedBuilder
 } from "discord.js";
-import { bot } from '../../index';
-import { i18n } from "../../utils/i18n";
-import { config } from '../../utils/config';
-import { randomColor } from "../../utils/color";
+import { bot } from '../index';
+import { i18n } from "../utils/i18n";
+import { Song } from "../structs/Song";
+import { config } from '../utils/config';
+import { randomColor } from "../utils/color";
 
-let helpEmbed: EmbedBuilder;
-
-function setHelp(interaction: CommandInteraction) {
+function setHelp() {
     const commands = bot.slashCommandsMap;
 
-    helpEmbed = new EmbedBuilder()
+    let helpEmbed = new EmbedBuilder()
         .setTitle(i18n.__mf("help.embedTitle", { botname: bot.client.user!.username }))
         .setDescription(i18n.__("help.embedDescription"))
         .setColor(randomColor());
@@ -32,10 +31,10 @@ function setHelp(interaction: CommandInteraction) {
 
     helpEmbed.setTimestamp();
 
-    return interaction.reply({ embeds: [helpEmbed] }).catch(console.error);
+    return helpEmbed
 }
 
-function setInvite(interaction: ChatInputCommandInteraction) {
+function setInvite() {
     const inviteEmbed = new EmbedBuilder().setTitle(i18n.__mf("Invite me to your server!"));
 
     // return interaction with embed and button to invite the bot
@@ -49,13 +48,7 @@ function setInvite(interaction: ChatInputCommandInteraction) {
             )
     )
 
-    return interaction.reply({ embeds: [inviteEmbed], components: [actionRow] }).catch(console.error);
-}
-
-function setPing(interaction: ChatInputCommandInteraction) {
-    interaction
-        .reply({ content: i18n.__mf("ping.result", { ping: Math.round(interaction.client.ws.ping) }), ephemeral: true })
-        .catch(console.error);
+    return { inviteEmbed, actionRow }
 }
 
 function getTime(date: Date) {
@@ -180,11 +173,34 @@ function setUptime(interaction: ChatInputCommandInteraction) {
         .catch(console.error);
 }
 
+function generateQueueEmbed(interaction: CommandInteraction, songs: Song[]) {
+    let embeds = [];
+    let k = 10;
+
+    for (let i = 0; i < songs.length; i += 10) {
+        const current = songs.slice(i, k);
+        let j = i;
+        k += 10;
+
+        const info = current.map((track) => `${++j} - [${track.title}](${track.url})`).join("\n");
+
+        const embed = new EmbedBuilder()
+            .setTitle(i18n.__("queue.embedTitle"))
+            .setThumbnail(interaction.guild?.iconURL()!)
+            .setColor(randomColor())
+            .setDescription(i18n.__mf("queue.embedCurrentSong", { title: songs[0].title, url: songs[0].url, info: info }))
+            .setTimestamp();
+        embeds.push(embed);
+    }
+
+    return embeds;
+}
+
 export {
     setHelp,
     setInvite,
-    setPing,
     setSleep,
     setStatus,
-    setUptime
+    setUptime,
+    generateQueueEmbed
 }
