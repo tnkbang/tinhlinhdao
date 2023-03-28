@@ -6,13 +6,13 @@ import {
   Collection,
   Events,
   Interaction,
-  MessageType,
   REST,
   Routes,
   Snowflake
 } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
+import onRequestMessage from "../commands/prefix/main";
 import { Command } from "../interfaces/Command";
 import { checkPermissions, PermissionResult } from "../utils/checkPermissions";
 import { config } from "../utils/config";
@@ -43,12 +43,7 @@ export class Bot {
     });
 
     this.client.on("messageCreate", (message) => {
-      if (message.author.bot) return;
-      if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == MessageType.Reply) return;
-
-      if (message.content.startsWith(`<@${this.client.user?.id}>`) || message.content.startsWith(`<@!${this.client.user?.id}>`)) {
-        message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
-      }
+      onRequestMessage(message)
     })
 
     this.client.on("warn", (info) => console.log(info));
