@@ -184,6 +184,7 @@
 		"description": "Đặt trạng thái cho bot.",
 		"type": "Loại trạng thái",
 		"value": "Mô tả trạng thái",
+		"errInput": "Tham số nhập vào không hợp lệ !",
 		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
 		"result": "Đã đặt trạng thái cho bot thành công !"
 	},

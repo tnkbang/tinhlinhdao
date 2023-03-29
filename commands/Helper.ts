@@ -5,7 +5,8 @@ import {
     ButtonStyle,
     ChatInputCommandInteraction,
     CommandInteraction,
-    EmbedBuilder
+    EmbedBuilder,
+    Message
 } from "discord.js";
 import { bot } from '../index';
 import { i18n } from "../utils/i18n";
@@ -98,7 +99,7 @@ function getContentSleeping(dateTime: Date) {
     return strResult
 }
 
-function setSleep(interaction: ChatInputCommandInteraction) {
+function setSleep(interaction: ChatInputCommandInteraction | Message) {
     const dateTime = getLocalDateTime()
 
     let title = i18n.__mf("sleep.strInfo", { time: getTime(dateTime) })
@@ -134,31 +135,7 @@ function getTypeStatus(type: string | null) {
     }
 }
 
-function setStatus(interaction: ChatInputCommandInteraction) {
-    const ownerID = config.OWNER
-    if (interaction.member?.user.id == ownerID) {
-        const type = interaction.options.getString('type')
-        const value = interaction.options.getString('value')
-
-        const thisType = getTypeStatus(type)
-        const thisVal = value ? value : '/help'
-
-        bot.client.user?.setActivity({
-            name: thisVal,
-            type: thisType.valueOf()
-        })
-
-        return interaction
-            .reply({ content: i18n.__("status.result") })
-            .catch(console.error);
-    }
-
-    return interaction
-        .reply({ content: i18n.__("status.missingPermission") })
-        .catch(console.error);
-}
-
-function setUptime(interaction: ChatInputCommandInteraction) {
+function setUptime(interaction: ChatInputCommandInteraction | Message) {
     let seconds = Math.floor(bot.client.uptime! / 1000);
     let minutes = Math.floor(seconds / 60);
     let hours = Math.floor(minutes / 60);
@@ -200,7 +177,7 @@ export {
     setHelp,
     setInvite,
     setSleep,
-    setStatus,
+    getTypeStatus,
     setUptime,
     generateQueueEmbed
 }

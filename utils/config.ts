@@ -9,7 +9,7 @@ try {
   config = {
     TOKEN: process.env.TOKEN || "",
     OWNER: process.env.OWNER || "",
-    PREFIX: process.env.PREFIX || "t",
+    PREFIX: process.env.PREFIX || "::",
     MAX_PLAYLIST_SIZE: parseInt(process.env.MAX_PLAYLIST_SIZE!) || 10,
     PRUNING: process.env.PRUNING === "true" ? true : false,
     STAY_TIME: parseInt(process.env.STAY_TIME!) || 30,
