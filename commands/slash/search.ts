@@ -74,7 +74,7 @@ export default {
                     .execute(interaction, selectInteraction.values[0])
                     .then(() => {
                         selectInteraction.values.slice(1).forEach((url) => {
-                            bot.slashCommandsMap.get("play")!.execute(interaction, url);
+                            bot.slashCommandsMap.get("play")!.execute(interaction, url, true);
                         });
                     });
             })

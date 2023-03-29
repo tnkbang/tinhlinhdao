@@ -22,7 +22,7 @@ export default {
         PermissionsBitField.Flags.AddReactions,
         PermissionsBitField.Flags.ManageMessages
     ],
-    async execute(interaction: ChatInputCommandInteraction, input: string) {
+    async execute(interaction: ChatInputCommandInteraction, input: string, isSearch: boolean = false) {
         let argSongName = interaction.options.getString("song");
         if (!argSongName) argSongName = input;
 
@@ -49,8 +49,10 @@ export default {
 
         const url = argSongName;
 
-        if (interaction.replied) await interaction.editReply("⏳ Loading...").catch(console.error);
-        else await interaction.reply("⏳ Loading...");
+        if (!isSearch) {
+            if (interaction.replied) await interaction.editReply("⏳ Loading...").catch(console.error);
+            else await interaction.reply("⏳ Loading...");
+        }
 
         // Start the playlist if playlist url was provided
         if (playlistPattern.test(url)) {

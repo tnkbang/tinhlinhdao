@@ -271,7 +271,7 @@ export class MusicQueue {
 
         case "⏹":
           reaction.users.remove(user).catch(console.error);
-          await this.bot.slashCommandsMap.get("stop")!.execute(this.interaction);
+          await this.bot.slashCommandsMap.get("stop")!.execute(this.interaction, true);
           collector.stop();
           break;
 

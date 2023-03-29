@@ -5,7 +5,7 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 export default {
     data: new SlashCommandBuilder().setName("stop").setDescription(i18n.__("stop.description")),
-    execute(interaction: ChatInputCommandInteraction) {
+    execute(interaction: ChatInputCommandInteraction, isReact: boolean = false) {
         const queue = bot.queues.get(interaction.guild!.id);
         const guildMemer = interaction.guild!.members.cache.get(interaction.user.id);
 
@@ -14,6 +14,7 @@ export default {
 
         queue.stop();
 
-        interaction.reply({ content: i18n.__mf("stop.result", { author: interaction.user.id }) }).catch(console.error);
+        if (!isReact)
+            interaction.reply({ content: i18n.__mf("stop.result", { author: interaction.user.id }) }).catch(console.error);
     }
 }
