@@ -1,3 +1,4 @@
+import { MusicQueuePrefix } from './MusicQueuePrefix';
 import {
   ActivityType,
   ApplicationCommandDataResolvable,
@@ -26,7 +27,7 @@ export class Bot {
   public slashCommands = new Array<ApplicationCommandDataResolvable>();
   public slashCommandsMap = new Collection<string, Command>();
   public cooldowns = new Collection<string, Collection<Snowflake, number>>();
-  public queues = new Collection<Snowflake, MusicQueue>();
+  public queues = new Collection<Snowflake, MusicQueue | MusicQueuePrefix>();
 
   public constructor(public readonly client: Client) {
     this.client.login(config.TOKEN);
@@ -42,8 +43,8 @@ export class Bot {
       this.registerSlashCommands();
     });
 
-    this.client.on("messageCreate", (message) => {
-      onRequestMessage(message)
+    this.client.on("messageCreate", async (message) => {
+      await onRequestMessage(message)
     })
 
     this.client.on("warn", (info) => console.log(info));

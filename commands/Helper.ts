@@ -11,7 +11,6 @@ import {
 import { bot } from '../index';
 import { i18n } from "../utils/i18n";
 import { Song } from "../structs/Song";
-import { config } from '../utils/config';
 import { randomColor } from "../utils/color";
 
 function setHelp() {
@@ -150,7 +149,7 @@ function setUptime(interaction: ChatInputCommandInteraction | Message) {
         .catch(console.error);
 }
 
-function generateQueueEmbed(interaction: CommandInteraction, songs: Song[]) {
+function generateQueueEmbed(interaction: CommandInteraction | Message, songs: Song[]) {
     let embeds = [];
     let k = 10;
 
