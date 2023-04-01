@@ -57,7 +57,7 @@ async function onRequestMessage(message: Message) {
             await nowplaying.execute(message)
             break;
         case `${prefix}pause`:
-            await pause.execute(message, '', undefined)
+            await pause.execute(message)
             break;
         case `${prefix}ping`:
             await ping.execute(message)

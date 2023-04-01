@@ -218,16 +218,15 @@ export class MusicQueuePrefix {
             switch (reaction.emoji.name) {
                 case "⏭":
                     reaction.users.remove(user).catch(console.error);
-                    await skip.execute(this.message)
+                    await skip.execute(playingMessage)
                     break;
 
                 case "⏯":
                     reaction.users.remove(user).catch(console.error);
                     if (this.player.state.status == AudioPlayerStatus.Playing) {
-                        await pause.execute(this.message, playingMessage.guildId || '', member)
-                        this.textChannel.send(i18n.__mf("pause.result", { author: member.id }))
+                        await pause.execute(playingMessage)
                     } else {
-                        await resume.execute(this.message)
+                        await resume.execute(playingMessage)
                     }
                     break;
 
@@ -268,17 +267,17 @@ export class MusicQueuePrefix {
 
                 case "🔁":
                     reaction.users.remove(user).catch(console.error);
-                    await loop.execute(this.message)
+                    await loop.execute(playingMessage)
                     break;
 
                 case "🔀":
                     reaction.users.remove(user).catch(console.error);
-                    await shuffle.execute(this.message)
+                    await shuffle.execute(playingMessage)
                     break;
 
                 case "⏹":
                     reaction.users.remove(user).catch(console.error);
-                    await stop.execute(this.message, true)
+                    await stop.execute(playingMessage, true)
                     collector.stop();
                     break;
 
