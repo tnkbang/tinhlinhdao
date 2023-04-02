@@ -18,12 +18,12 @@ export default {
 
         await message.reply("⏳ Loading queue...");
 
-        await message.reply({
+        const repMsg = await message.reply({
             content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`,
             embeds: [embeds[currentPage]]
         });
 
-        const queueEmbed = await message.fetch()
+        const queueEmbed = repMsg
 
         try {
             await queueEmbed.react("⬅️");
