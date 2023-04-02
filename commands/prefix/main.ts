@@ -45,7 +45,7 @@ async function onRequestMessage(message: Message) {
             await invite.execute(message)
             break;
         case `${prefix}loop`:
-            await loop.execute(message)
+            await loop.execute(message, undefined)
             break;
         case `${prefix}lyrics`:
             await lyrics.execute(message)
@@ -57,7 +57,7 @@ async function onRequestMessage(message: Message) {
             await nowplaying.execute(message)
             break;
         case `${prefix}pause`:
-            await pause.execute(message)
+            await pause.execute(message, undefined)
             break;
         case `${prefix}ping`:
             await ping.execute(message)
@@ -76,16 +76,16 @@ async function onRequestMessage(message: Message) {
             await remove.execute(message, arrMsg[1])
             break;
         case `${prefix}resume`:
-            await resume.execute(message)
+            await resume.execute(message, undefined)
             break;
         case `${prefix}search`:
             await search.execute(message, message.content.replace(arrMsg[0], '').trim())
             break;
         case `${prefix}shuffle`:
-            await shuffle.execute(message)
+            await shuffle.execute(message, undefined)
             break;
         case `${prefix}skip`:
-            await skip.execute(message)
+            await skip.execute(message, undefined)
             break;
         case `${prefix}skipto`:
             await skipto.execute(message, arrMsg[1])
@@ -97,7 +97,7 @@ async function onRequestMessage(message: Message) {
             await status.execute(message, arrMsg[1], message.content.replace(arrMsg[0] + ' ' + arrMsg[1], '').trim())
             break;
         case `${prefix}stop`:
-            await stop.execute(message, false)
+            await stop.execute(message, undefined, false)
             break;
         case `${prefix}uptime`:
             await uptime.execute(message)

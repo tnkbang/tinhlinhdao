@@ -1,17 +1,17 @@
 import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { canModifyQueue } from '../../utils/queue';
-import { Message } from "discord.js";
+import { GuildMember, Message } from "discord.js";
 
 export default {
-    execute(message: Message) {
+    execute(message: Message, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);
-        const guildMemer = message.guild!.members.cache.get(message.author.id);
+        if (author == undefined) author = message.guild!.members.cache.get(message.author.id);
 
         if (!queue)
             return message.reply({ content: i18n.__("shuffle.errorNotQueue") }).catch(console.error);
 
-        if (!guildMemer || !canModifyQueue(guildMemer)) return i18n.__("common.errorNotChannel");
+        if (!author || !canModifyQueue(author)) return i18n.__("common.errorNotChannel");
 
         let songs = queue.songs;
 
@@ -22,7 +22,7 @@ export default {
 
         queue.songs = songs;
 
-        const content = { content: i18n.__mf("shuffle.result", { author: message.author.id }) };
+        const content = { content: i18n.__mf("shuffle.result", { author: author.id }) };
 
         message.reply(content).catch(console.error);
     }
