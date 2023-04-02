@@ -20,7 +20,7 @@ import shuffle from "../commands/prefix/shuffle";
 import skip from "../commands/prefix/skip";
 import stop from "../commands/prefix/stop";
 import { bot } from "../index";
-import { QueueOptions } from "../interfaces/QueueOptions";
+import { QueueOptionsPreifx } from './../interfaces/QueueOptions';
 import { config } from "../utils/config";
 import { i18n } from "../utils/i18n";
 import { canModifyQueue } from "../utils/queue";
@@ -29,7 +29,7 @@ import { Song } from "./Song";
 const wait = promisify(setTimeout);
 
 export class MusicQueuePrefix {
-    public readonly message: Message;
+    public message: Message;
     public readonly connection: VoiceConnection;
     public readonly player: AudioPlayer;
     public readonly textChannel: TextChannel;
@@ -45,7 +45,7 @@ export class MusicQueuePrefix {
     private readyLock = false;
     private stopped = false;
 
-    public constructor(options: QueueOptions) {
+    public constructor(options: QueueOptionsPreifx) {
         Object.assign(this, options);
 
         this.player = createAudioPlayer({ behaviors: { noSubscriber: NoSubscriberBehavior.Play } });
@@ -188,6 +188,7 @@ export class MusicQueuePrefix {
 
         try {
             playingMessage = await this.textChannel.send((newState.resource as AudioResource<Song>).metadata.startMessage());
+            if (this.message == undefined) this.message = playingMessage
 
             await playingMessage.react("⏭");
             await playingMessage.react("⏯");

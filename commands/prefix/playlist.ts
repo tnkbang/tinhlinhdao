@@ -8,7 +8,7 @@ import { i18n } from "../../utils/i18n";
 import { Song } from '../../structs/Song';
 import { randomColor } from "../../utils/color";
 import { Playlist } from '../../structs/Playlist';
-import { MusicQueue } from '../../structs/MusicQueue';
+import { MusicQueuePrefix } from '../../structs/MusicQueuePrefix';
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 
 export default {
@@ -46,9 +46,8 @@ export default {
         if (queue) {
             queue.songs.push(...playlist.videos);
         } else {
-            const interaction = message
-            const newQueue = new MusicQueue({
-                interaction,
+            const newQueue = new MusicQueuePrefix({
+                message,
                 textChannel: message.channel! as TextChannel,
                 connection: joinVoiceChannel({
                     channelId: channel.id,

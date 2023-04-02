@@ -72,11 +72,8 @@ export default {
                 .catch(console.error);
         }
 
-        //đổi tên biến để nhận vào QueueOptions
-        const interaction = message
-
         const newQueue = new MusicQueuePrefix({
-            interaction,
+            message,
             textChannel: message.channel! as TextChannel,
             connection: joinVoiceChannel({
                 channelId: channel.id,
