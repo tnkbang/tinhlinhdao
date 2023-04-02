@@ -64,14 +64,12 @@ export default {
 
                 selectInteraction.update({ content: "⏳ Loading the selected songs...", components: [] });
 
-                bot.slashCommandsMap
-                    .get("play")!
-                    .execute(message, selectInteraction.values[0])
+                play.execute(message, selectInteraction.values[0])
                     .then(() => {
                         selectInteraction.values.slice(1).forEach((url) => {
                             play.execute(message, url, true)
-                        });
-                    });
+                        })
+                    })
             })
             .catch(console.error);
     }
