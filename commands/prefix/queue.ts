@@ -23,12 +23,10 @@ export default {
             embeds: [embeds[currentPage]]
         });
 
-        const queueEmbed = repMsg
-
         try {
-            await queueEmbed.react("⬅️");
-            await queueEmbed.react("⏹");
-            await queueEmbed.react("➡️");
+            await repMsg.react("⬅️");
+            await repMsg.react("⏹");
+            await repMsg.react("➡️");
         } catch (error: any) {
             console.error(error);
             (message.channel as TextChannel).send(error.message).catch(console.error);
@@ -37,14 +35,14 @@ export default {
         const filter = (reaction: MessageReaction, user: User) =>
             ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && message.author.id === user.id;
 
-        const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
+        const collector = repMsg.createReactionCollector({ filter, time: 60000 });
 
         collector.on("collect", async (reaction, user) => {
             try {
                 if (reaction.emoji.name === "➡️") {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
-                        queueEmbed.edit({
+                        repMsg.edit({
                             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
                             embeds: [embeds[currentPage]]
                         });
@@ -52,7 +50,7 @@ export default {
                 } else if (reaction.emoji.name === "⬅️") {
                     if (currentPage !== 0) {
                         --currentPage;
-                        queueEmbed.edit({
+                        repMsg.edit({
                             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
                             embeds: [embeds[currentPage]]
                         });
