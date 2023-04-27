@@ -11,7 +11,7 @@ import {
     VoiceConnectionState,
     VoiceConnectionStatus
 } from "@discordjs/voice";
-import { Message, TextChannel, User } from "discord.js";
+import { Message, ReactionCollector, TextChannel, User } from "discord.js";
 import { promisify } from "node:util";
 import loop from "../commands/prefix/loop";
 import pause from "../commands/prefix/pause";
@@ -29,12 +29,13 @@ import { Song } from "./Song";
 const wait = promisify(setTimeout);
 
 export class MusicQueuePrefix {
-    public message: Message;
     public readonly connection: VoiceConnection;
     public readonly player: AudioPlayer;
     public readonly textChannel: TextChannel;
     public readonly bot = bot;
 
+    public message: Message;
+    public collector: ReactionCollector;
     public resource: AudioResource;
     public songs: Song[] = [];
     public volume = config.DEFAULT_VOLUME || 100;
@@ -146,6 +147,7 @@ export class MusicQueuePrefix {
                 } catch { }
             }
             bot.queues.delete(this.message.guild!.id);
+            this.collector.stop();
 
             !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
         }, config.STAY_TIME * 1);
@@ -204,12 +206,12 @@ export class MusicQueuePrefix {
 
         const filter = (reaction: any, user: User) => user.id !== this.textChannel.client.user!.id;
 
-        const collector = playingMessage.createReactionCollector({
+        this.collector = playingMessage.createReactionCollector({
             filter,
             time: song.duration > 0 ? song.duration * 1000 : 600000
         });
 
-        collector.on("collect", async (reaction, user) => {
+        this.collector.on("collect", async (reaction, user) => {
             if (!this.songs) return;
 
             const member = await playingMessage.guild!.members.fetch(user);
@@ -218,7 +220,7 @@ export class MusicQueuePrefix {
                 case "⏭":
                     reaction.users.remove(user).catch(console.error);
                     await skip.execute(playingMessage, member)
-                    await playingMessage.reactions.removeAll().catch(console.error);
+                    this.collector.stop();
                     break;
 
                 case "⏯":
@@ -278,7 +280,7 @@ export class MusicQueuePrefix {
                 case "⏹":
                     reaction.users.remove(user).catch(console.error);
                     await stop.execute(playingMessage, member, true)
-                    collector.stop();
+                    this.collector.stop();
                     break;
 
                 default:
@@ -287,7 +289,7 @@ export class MusicQueuePrefix {
             }
         });
 
-        collector.on("end", () => {
+        this.collector.on("end", () => {
             playingMessage.reactions.removeAll().catch(console.error);
 
             if (config.PRUNING) {

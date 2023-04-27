@@ -11,7 +11,7 @@ import {
   VoiceConnectionState,
   VoiceConnectionStatus
 } from "@discordjs/voice";
-import { CommandInteraction, Message, TextChannel, User } from "discord.js";
+import { CommandInteraction, Message, ReactionCollector, TextChannel, User } from "discord.js";
 import { promisify } from "node:util";
 import { bot } from "../index";
 import { QueueOptions } from "../interfaces/QueueOptions";
@@ -29,6 +29,7 @@ export class MusicQueue {
   public readonly textChannel: TextChannel;
   public readonly bot = bot;
 
+  public collector: ReactionCollector;
   public resource: AudioResource;
   public songs: Song[] = [];
   public volume = config.DEFAULT_VOLUME || 100;
@@ -140,6 +141,7 @@ export class MusicQueue {
         } catch { }
       }
       bot.queues.delete(this.interaction.guild!.id);
+      this.collector.stop();
 
       !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
     }, config.STAY_TIME * 1);
@@ -197,12 +199,12 @@ export class MusicQueue {
 
     const filter = (reaction: any, user: User) => user.id !== this.textChannel.client.user!.id;
 
-    const collector = playingMessage.createReactionCollector({
+    this.collector = playingMessage.createReactionCollector({
       filter,
       time: song.duration > 0 ? song.duration * 1000 : 600000
     });
 
-    collector.on("collect", async (reaction, user) => {
+    this.collector.on("collect", async (reaction, user) => {
       if (!this.songs) return;
 
       const member = await playingMessage.guild!.members.fetch(user);
@@ -211,7 +213,7 @@ export class MusicQueue {
         case "⏭":
           reaction.users.remove(user).catch(console.error);
           await this.bot.slashCommandsMap.get("skip")!.execute(this.interaction);
-          await playingMessage.reactions.removeAll().catch(console.error);
+          this.collector.stop();
           break;
 
         case "⏯":
@@ -271,7 +273,7 @@ export class MusicQueue {
         case "⏹":
           reaction.users.remove(user).catch(console.error);
           await this.bot.slashCommandsMap.get("stop")!.execute(this.interaction, true);
-          collector.stop();
+          this.collector.stop();
           break;
 
         default:
@@ -280,7 +282,7 @@ export class MusicQueue {
       }
     });
 
-    collector.on("end", () => {
+    this.collector.on("end", () => {
       playingMessage.reactions.removeAll().catch(console.error);
 
       if (config.PRUNING) {
