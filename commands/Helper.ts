@@ -76,11 +76,19 @@ function getStringHours(cycle: number) {
 }
 
 function getLocalDateTime() {
-    const strTime = new Date().toLocaleString('en-US', {
-        timeZone: 'Asia/Ho_Chi_Minh'
-    })
-    return new Date(strTime)
+    const date = new Date();
+    //add date UTC+7 in locate vi_VN
+    date.setTime(date.getTime() + 7 * 60 * 60 * 1000);
+    return date;
 }
+
+// run in local
+// function getLocalDateTime() {
+//     const strTime = new Date().toLocaleString('en-US', {
+//         timeZone: 'Asia/Ho_Chi_Minh'
+//     })
+//     return new Date(strTime)
+// }
 
 function getContentSleeping(dateTime: Date) {
     let strResult = ""
