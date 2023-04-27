@@ -36,7 +36,7 @@ export class Bot {
       console.log(`${this.client.user!.username} ready!`);
 
       client.user?.setActivity({
-        name: "/help",
+        name: "/help | " + config.PREFIX + "help",
         type: ActivityType.Listening
       })
 
