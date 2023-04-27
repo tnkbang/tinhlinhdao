@@ -137,8 +137,6 @@ export class MusicQueuePrefix {
         this.songs = [];
         this.player.stop();
 
-        !config.PRUNING && this.textChannel.send(i18n.__("play.queueEnded")).catch(console.error);
-
         if (this.waitTimeout !== null) return;
 
         this.waitTimeout = setTimeout(() => {
@@ -150,7 +148,7 @@ export class MusicQueuePrefix {
             bot.queues.delete(this.message.guild!.id);
 
             !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
-        }, config.STAY_TIME * 1000);
+        }, config.STAY_TIME * 1);
     }
 
     public async processQueue(): Promise<void> {
