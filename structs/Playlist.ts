@@ -24,6 +24,11 @@ export class Playlist {
   }
 
   public static async from(url: string = "", search: string = "") {
+    var reg = new RegExp("[?]v=([a-z0-9_]+)", "i");
+    var match = reg.exec(url);
+
+    if (match) search = url = match[1]
+
     const urlValid = pattern.test(url);
     let playlist;
 
