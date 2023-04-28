@@ -8,6 +8,7 @@ import { Song } from '../../structs/Song';
 import { playlistPattern } from '../../utils/patterns';
 import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
+import playlist from "./playlist";
 
 export default {
     async execute(message: Message, input: string, isSearch: boolean = false) {
@@ -43,7 +44,8 @@ export default {
         if (playlistPattern.test(url)) {
             await message.reply("🔗 Link is playlist").catch(console.error);
 
-            return bot.slashCommandsMap.get("playlist")!.execute(message);
+            const arrMsg = message.content.split(' ')
+            return playlist.execute(message, message.content.replace(arrMsg[0], '').trim())
         }
 
         let song;
