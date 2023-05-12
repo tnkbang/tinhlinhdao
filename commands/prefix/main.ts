@@ -37,74 +37,101 @@ async function onRequestMessage(message: Message) {
 
     const arrMsg = message.content.split(' ')
 
-    switch (arrMsg[0]) {
-        case `${prefix}help`:
+    switch (arrMsg[0].toLowerCase()) {
+        case `${prefix}help`: {
             await help.execute(message)
             break;
-        case `${prefix}invite`:
+        }
+        case `${prefix}invite`: {
             await invite.execute(message)
             break;
-        case `${prefix}loop`:
+        }
+        case `${prefix}loop`: {
             await loop.execute(message, undefined)
             break;
-        case `${prefix}lyrics`:
+        }
+        case `${prefix}lyrics`: {
             await lyrics.execute(message)
             break;
-        case `${prefix}move`:
+        }
+        case `${prefix}move`: {
             await move.execute(message, arrMsg[1], arrMsg[2])
             break;
-        case `${prefix}nowplaying`:
+        }
+        case `${prefix}nowplaying`: {
             await nowplaying.execute(message)
             break;
-        case `${prefix}pause`:
+        }
+        case `${prefix}pause`: {
             await pause.execute(message, undefined)
             break;
-        case `${prefix}ping`:
+        }
+        case `${prefix}ping`: {
             await ping.execute(message)
             break;
-        case `${prefix}play`:
+        }
+        case `${prefix}play`: {
             const songName = message.content.replace(arrMsg[0], '').trim()
             await play.execute(message, songName, false)
             break;
-        case `${prefix}playlist`:
+        }
+        case `${prefix}p`: {
+            const songName = message.content.replace(arrMsg[0], '').trim()
+            await play.execute(message, songName, false)
+            break;
+        }
+        case `${prefix}playlist`: {
             await playlist.execute(message, message.content.replace(arrMsg[0], '').trim())
             break;
-        case `${prefix}queue`:
+        }
+        case `${prefix}queue`: {
             await queue.execute(message)
             break;
-        case `${prefix}remove`:
+        }
+        case `${prefix}remove`: {
             await remove.execute(message, arrMsg[1])
             break;
-        case `${prefix}resume`:
+        }
+        case `${prefix}resume`: {
             await resume.execute(message, undefined)
             break;
-        case `${prefix}search`:
+        }
+        case `${prefix}search`: {
             await search.execute(message, message.content.replace(arrMsg[0], '').trim())
             break;
-        case `${prefix}shuffle`:
+        }
+        case `${prefix}shuffle`: {
             await shuffle.execute(message, undefined)
             break;
-        case `${prefix}skip`:
+        }
+        case `${prefix}skip`: {
             await skip.execute(message, undefined)
             break;
-        case `${prefix}skipto`:
+        }
+        case `${prefix}skipto`: {
             await skipto.execute(message, arrMsg[1])
             break;
-        case `${prefix}sleep`:
+        }
+        case `${prefix}sleep`: {
             await sleep.execute(message)
             break;
-        case `${prefix}status`:
+        }
+        case `${prefix}status`: {
             await status.execute(message, arrMsg[1], message.content.replace(arrMsg[0] + ' ' + arrMsg[1], '').trim())
             break;
-        case `${prefix}stop`:
+        }
+        case `${prefix}stop`: {
             await stop.execute(message, undefined, false)
             break;
-        case `${prefix}uptime`:
+        }
+        case `${prefix}uptime`: {
             await uptime.execute(message)
             break;
-        case `${prefix}volume`:
+        }
+        case `${prefix}volume`: {
             await volume.execute(message, arrMsg[1])
             break;
+        }
     }
 }
 
