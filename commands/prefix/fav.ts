@@ -40,6 +40,16 @@ export default {
 
         }
         else {
+            const arrMsg = input.split(' ')
+            if (arrMsg[1]) {
+                fav.set(message, arrMsg[1])
+            }
+            else if (queue) {
+                queue.songs.forEach((value) => {
+                    fav.set(message, value.url)
+                })
+            }
+
             return (message.channel as TextChannel)
                 .send({ content: "Chưa thiết đặt lệnh" })
                 .catch(console.error);

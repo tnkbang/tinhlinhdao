@@ -1,3 +1,5 @@
+import { Message } from "discord.js";
+
 export interface Fav {
     USER: users[]
 }
@@ -8,7 +10,6 @@ interface users {
 }
 
 interface musics {
-    TITLE: string,
     URL: string
 }
 
@@ -24,5 +25,5 @@ export class Favorite {
         }
     }
 
-    public set() { }
+    public set(message: Message, url: string) { }
 }
