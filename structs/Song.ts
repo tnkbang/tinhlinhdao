@@ -1,7 +1,9 @@
-import { AudioResource, createAudioResource, StreamType } from "@discordjs/voice";
+import { AudioResource, createAudioResource } from "@discordjs/voice";
 import youtube from "youtube-sr";
 import { i18n } from "../utils/i18n";
 import { videoPattern, isURL } from "../utils/patterns";
+import { CommandInteraction, GuildMember, InteractionType, Message } from "discord.js";
+import { bot } from "../index";
 const { stream, video_basic_info } = require('play-dl');
 
 export interface SongData {
@@ -71,5 +73,22 @@ export class Song {
 
   public startMessage() {
     return i18n.__mf("play.startedPlaying", { title: this.title, url: this.url });
+  }
+
+  public checkOnVoice(message: Message | CommandInteraction) {
+    let guildMember: GuildMember | undefined;
+
+    if (message.type == InteractionType.ApplicationCommand)
+      guildMember = message.guild?.members.cache.get(message.user.id)
+    else
+      guildMember = message.guild?.members.cache.get(message.author.id)
+
+    const { channel } = guildMember!.voice;
+    const queue = bot.queues.get(message.guild!.id);
+
+    if (!channel) return false;
+    if (queue && channel.id !== queue.connection.joinConfig.channelId) return false;
+
+    return true;
   }
 }

@@ -209,6 +209,11 @@ export class MusicQueue {
 
       const member = await playingMessage.guild!.members.fetch(user);
 
+      if (!song.checkOnVoice(this.interaction)) {
+        reaction.users.remove(user).catch(console.error);
+        return;
+      }
+
       switch (reaction.emoji.name) {
         case "⏭":
           reaction.users.remove(user).catch(console.error);
