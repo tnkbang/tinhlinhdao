@@ -50,11 +50,16 @@ export default {
                         fav.set(message, value.url)
                     })
                 }
-            }
 
-            return (message.channel as TextChannel)
-                .send({ content: "Lệnh không phù hợp !" })
-                .catch(console.error);
+                return (message.channel as TextChannel)
+                    .send({ content: "Đã thêm vào danh sách yêu thích !" })
+                    .catch(console.error);
+            }
+            else {
+                return (message.channel as TextChannel)
+                    .send({ content: "Lệnh không phù hợp !" })
+                    .catch(console.error);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ export class Favorite {
     public value: Fav;
     public get() {
         try {
-            this.value = require("../commands/data.json");
+            this.value = require("./data.json");
         } catch (error) {
             this.value = {
                 USER: []
@@ -26,10 +26,15 @@ export class Favorite {
     }
 
     private isUser(message: Message, users: users[]) {
-        users.map(value => {
+        return users.some(value => {
             if (value.USER_ID == message.author.id) return true
         })
-        return false
+    }
+
+    private isFavorite(songs: musics[], url: string) {
+        return songs.some(value => {
+            if (value.URL == url) return true
+        })
     }
 
     public set(message: Message, url: string) {
@@ -38,10 +43,12 @@ export class Favorite {
         if (this.isUser(message, this.value.USER)) {
             this.value.USER.map(value => {
                 if (value.USER_ID == message.author.id) {
-                    const song: musics = {
-                        URL: url
+                    if (!this.isFavorite(value.MUSICS, url)) {
+                        const song: musics = {
+                            URL: url
+                        }
+                        value.MUSICS.push(song)
                     }
-                    value.MUSICS.push(song)
                 }
             })
         }
@@ -60,11 +67,8 @@ export class Favorite {
 
         var json = JSON.stringify(this.value);
         var fs = require('fs');
-        fs.writeFile("../commands/data.json", json, 'utf8', function (err: any) {
+        fs.writeFile(__dirname + "/data.json", json, 'utf8', function (err: any) {
             if (err) throw err;
-            return (message.channel as TextChannel)
-                .send({ content: "Đã thêm bài hát vào yêu thích !" })
-                .catch(console.error);
         });
     }
 }
