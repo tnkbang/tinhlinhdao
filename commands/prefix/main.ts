@@ -23,6 +23,7 @@ import status from './status';
 import stop from './stop';
 import uptime from './uptime';
 import volume from './volume';
+import fav from './fav';
 
 const prefix = config.PREFIX
 
@@ -38,6 +39,10 @@ async function onRequestMessage(message: Message) {
     const arrMsg = message.content.split(' ')
 
     switch (arrMsg[0].toLowerCase()) {
+        case `${prefix}fav`: {
+            await fav.execute(message, message.content.replace(arrMsg[0], '').trim())
+            break;
+        }
         case `${prefix}help`: {
             await help.execute(message)
             break;
