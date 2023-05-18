@@ -3,8 +3,7 @@ import {
     Message, TextChannel, VoiceBasedChannel
 } from "discord.js";
 import { Favorite } from "../../structs/Favorite";
-import play from "./play";
-import { bot } from "../..";
+import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { MusicQueue } from "../../structs/MusicQueue";
 import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
@@ -65,11 +64,11 @@ export default {
 function readFavorite(message: Message, fav: Favorite) {
     if (!fav.isUser(message, fav.value.user))
         return message
-            .reply({ content: 'Bạn chưa thêm bài hát nào vào danh sách yêu thích !' })
+            .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
 
     let favEmbed = new EmbedBuilder()
-        .setTitle('Ds bài hát yêu thích của bạn !')
+        .setTitle(i18n.__("favorite.title"))
         .setColor(randomColor())
         .setTimestamp();
 
@@ -101,7 +100,7 @@ function playFavorite(fav: Favorite, message: Message, queue: MusicQueue | Music
     if (queue) {
         queue.songs.push(...lstFav)
         return message
-            .reply({ content: 'Đã thêm các bài hát từ danh sách yêu thích vào hàng đợi !' })
+            .reply({ content: i18n.__("favorite.resultPlay") })
             .catch(console.error);
     } else {
         const newQueue = new MusicQueuePrefix({
@@ -146,12 +145,12 @@ async function addFavorite(arrMsg: string[], message: Message, fav: Favorite, qu
     }
     else {
         return (message.channel as TextChannel)
-            .send({ content: "Không có bài hát nào đang phát !" })
+            .send({ content: i18n.__("favorite.notPlaying") })
             .catch(console.error);
     }
 
     fav.save()
     return (message.channel as TextChannel)
-        .send({ content: "Đã thêm vào danh sách yêu thích !" })
+        .send({ content: i18n.__("favorite.resultAdd") })
         .catch(console.error);
 }

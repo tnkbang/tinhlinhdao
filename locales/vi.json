@@ -188,6 +188,13 @@
 		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
 		"result": "Đã đặt trạng thái cho bot thành công !"
 	},
+	"favorite":{
+		"title":"Danh sách bài hát yêu thích của bạn !",
+		"resultPlay":"Đã thêm các bài hát từ danh sách yêu thích vào hàng đợi !",
+		"resultAdd":"Đã thêm vào danh sách yêu thích !",
+		"notFavorite":"Bạn chưa thêm bài hát nào vào danh sách yêu thích !",
+		"notPlaying": "Không có bài hát nào đang phát !"
+	},
 	"Invite me to your server!": "Invite me to your server!",
 	"Invite": "Invite"
 }
