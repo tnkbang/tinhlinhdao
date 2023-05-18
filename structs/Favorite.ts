@@ -70,8 +70,6 @@ export class Favorite {
 
     public save() {
         const json = JSON.stringify(this.value);
-        fs.writeFile(__dirname + "/data.json", json, 'utf8', function (err: any) {
-            if (err) throw err;
-        });
+        fs.writeFileSync(__dirname + "/data.json", json, 'utf8');
     }
 }
