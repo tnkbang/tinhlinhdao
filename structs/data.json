@@ -1,14 +1,1 @@
-{
-    "USER":[
-        {
-            "USER_ID":"512093202841468928",
-            "MUSICS":[
-                {
-                    "URL":"https://www.youtube.com/watch?v=IXoQxjNo-8o"
-                },{
-                    "URL":"https://www.youtube.com/watch?v=J5oaDY6EWOI"
-                }
-            ]
-        }
-    ]
-}
+{"user":[{"user_id":"512093202841468928","musics":[{"url":"https://www.youtube.com/watch?v=IXoQxjNo-8o","title":"Khúc Hát Lênh Đênh, LK Bolero Cha Cha Cha Toàn Bài Hay, Phối Mới Cực Chuẩn, Nghe Thử Nghiện Luôn","duration":5197},{"url":"https://www.youtube.com/watch?v=EoRmu5RTqXA","title":"Tình Đời   Lệ Quyên","duration":319}]}]}

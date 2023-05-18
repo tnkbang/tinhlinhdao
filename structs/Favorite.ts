@@ -1,19 +1,15 @@
 import { Message, TextChannel } from "discord.js";
+import { SongData } from './Song';
 const fs = require('fs');
 
 export interface Fav {
-    USER: users[]
+    user: users[]
 }
 
 interface users {
-    USER_ID: string;
-    MUSICS: musics[]
+    user_id: string;
+    musics: SongData[]
 }
-
-interface musics {
-    URL: string
-}
-
 export class Favorite {
     public value: Fav;
     public get() {
@@ -22,32 +18,29 @@ export class Favorite {
             this.value = JSON.parse(jsonString);
         } catch (error) {
             this.value = {
-                USER: []
+                user: []
             };
         }
     }
 
-    private isUser(message: Message, users: users[]) {
+    public isUser(message: Message, users: users[]) {
         return users.some(value => {
-            if (value.USER_ID == message.author.id) return true
+            if (value.user_id == message.author.id) return true
         })
     }
 
-    private isFavorite(songs: musics[], url: string) {
+    private isFavorite(songs: SongData[], url: string) {
         return songs.some(value => {
-            if (value.URL == url) return true
+            if (value.url == url) return true
         })
     }
 
-    public set(message: Message, url: string) {
-        if (this.isUser(message, this.value.USER)) {
-            this.value.USER.some(value => {
-                if (value.USER_ID == message.author.id) {
-                    if (!this.isFavorite(value.MUSICS, url)) {
-                        const song: musics = {
-                            URL: url
-                        }
-                        value.MUSICS.push(song)
+    public set(message: Message, song: SongData) {
+        if (this.isUser(message, this.value.user)) {
+            this.value.user.some(value => {
+                if (value.user_id == message.author.id) {
+                    if (!this.isFavorite(value.musics, song.url)) {
+                        value.musics.push(song)
                     }
 
                     return true
@@ -55,16 +48,13 @@ export class Favorite {
             })
         }
         else {
-            const song: musics = {
-                URL: url
-            }
             const user: users = {
-                USER_ID: message.author.id,
-                MUSICS: []
+                user_id: message.author.id,
+                musics: []
             }
-            user.MUSICS.push(song)
+            user.musics.push(song)
 
-            this.value.USER.push(user)
+            this.value.user.push(user)
         }
     }
 
