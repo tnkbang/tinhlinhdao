@@ -51,6 +51,7 @@ export default {
                     })
                 }
 
+                fav.save()
                 return (message.channel as TextChannel)
                     .send({ content: "Đã thêm vào danh sách yêu thích !" })
                     .catch(console.error);

@@ -1,4 +1,5 @@
 import { Message, TextChannel } from "discord.js";
+const fs = require('fs');
 
 export interface Fav {
     USER: users[]
@@ -17,7 +18,8 @@ export class Favorite {
     public value: Fav;
     public get() {
         try {
-            this.value = require("./data.json");
+            const jsonString = fs.readFileSync(__dirname + "/data.json");
+            this.value = JSON.parse(jsonString);
         } catch (error) {
             this.value = {
                 USER: []
@@ -38,10 +40,8 @@ export class Favorite {
     }
 
     public set(message: Message, url: string) {
-        this.get()
-
         if (this.isUser(message, this.value.USER)) {
-            this.value.USER.map(value => {
+            this.value.USER.some(value => {
                 if (value.USER_ID == message.author.id) {
                     if (!this.isFavorite(value.MUSICS, url)) {
                         const song: musics = {
@@ -49,6 +49,8 @@ export class Favorite {
                         }
                         value.MUSICS.push(song)
                     }
+
+                    return true
                 }
             })
         }
@@ -64,9 +66,10 @@ export class Favorite {
 
             this.value.USER.push(user)
         }
+    }
 
-        var json = JSON.stringify(this.value);
-        var fs = require('fs');
+    public save() {
+        const json = JSON.stringify(this.value);
         fs.writeFile(__dirname + "/data.json", json, 'utf8', function (err: any) {
             if (err) throw err;
         });
