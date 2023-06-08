@@ -28,113 +28,120 @@ import fav from './fav';
 const prefix = config.PREFIX
 
 async function onRequestMessage(message: Message) {
-    if (message.author.bot) return;
+    if (message.author.bot || !bot.client.user?.id) return;
     if (message.content.includes("@here") || message.content.includes("@everyone") || message.type == MessageType.Reply) return;
 
-    if (message.content.startsWith(`<@${bot.client.user?.id}>`)
-        || message.content.startsWith(`<@!${bot.client.user?.id}>`)) {
-        message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
-    }
+    const arrMsg = message.content.trim().split(/ +/);
+    const startMsg = arrMsg.shift()?.toLowerCase();
+    let command: string
 
-    const arrMsg = message.content.split(' ')
+    if (!startMsg?.startsWith(prefix) && !startMsg?.includes(bot.client.user?.id)) return
 
-    switch (arrMsg[0].toLowerCase()) {
-        case `${prefix}fav`: {
-            await fav.execute(message, message.content.replace(arrMsg[0], '').trim())
+    if (startMsg.startsWith(prefix)) command = startMsg.slice(prefix.length)
+    else command = arrMsg.shift()?.toLowerCase() || ""
+    if (command == "") return
+
+    const inputMsg = arrMsg.toString().replaceAll(',', ' ')
+
+    switch (command) {
+        case 'fav': {
+            await fav.execute(message, inputMsg.trim())
             break;
         }
-        case `${prefix}help`: {
+        case 'help': {
             await help.execute(message)
             break;
         }
-        case `${prefix}invite`: {
+        case 'invite': {
             await invite.execute(message)
             break;
         }
-        case `${prefix}loop`: {
+        case 'loop': {
             await loop.execute(message, undefined)
             break;
         }
-        case `${prefix}lyrics`: {
+        case 'lyrics': {
             await lyrics.execute(message)
             break;
         }
-        case `${prefix}move`: {
-            await move.execute(message, arrMsg[1], arrMsg[2])
+        case 'move': {
+            await move.execute(message, arrMsg[0], arrMsg[1])
             break;
         }
-        case `${prefix}nowplaying`: {
+        case 'nowplaying': {
             await nowplaying.execute(message)
             break;
         }
-        case `${prefix}pause`: {
+        case 'pause': {
             await pause.execute(message, undefined)
             break;
         }
-        case `${prefix}ping`: {
+        case 'ping': {
             await ping.execute(message)
             break;
         }
-        case `${prefix}play`: {
-            const songName = message.content.replace(arrMsg[0], '').trim()
-            await play.execute(message, songName, false)
+        case 'play': {
+            await play.execute(message, inputMsg.trim(), false)
             break;
         }
-        case `${prefix}p`: {
-            const songName = message.content.replace(arrMsg[0], '').trim()
-            await play.execute(message, songName, false)
+        case 'p': {
+            await play.execute(message, inputMsg.trim(), false)
             break;
         }
-        case `${prefix}playlist`: {
-            await playlist.execute(message, message.content.replace(arrMsg[0], '').trim())
+        case 'playlist': {
+            await playlist.execute(message, inputMsg.trim())
             break;
         }
-        case `${prefix}queue`: {
+        case 'queue': {
             await queue.execute(message)
             break;
         }
-        case `${prefix}remove`: {
-            await remove.execute(message, arrMsg[1])
+        case 'remove': {
+            await remove.execute(message, arrMsg[0])
             break;
         }
-        case `${prefix}resume`: {
+        case 'resume': {
             await resume.execute(message, undefined)
             break;
         }
-        case `${prefix}search`: {
-            await search.execute(message, message.content.replace(arrMsg[0], '').trim())
+        case 'search': {
+            await search.execute(message, inputMsg.trim())
             break;
         }
-        case `${prefix}shuffle`: {
+        case 'shuffle': {
             await shuffle.execute(message, undefined)
             break;
         }
-        case `${prefix}skip`: {
+        case 'skip': {
             await skip.execute(message, undefined)
             break;
         }
-        case `${prefix}skipto`: {
-            await skipto.execute(message, arrMsg[1])
+        case 'skipto': {
+            await skipto.execute(message, arrMsg[0])
             break;
         }
-        case `${prefix}sleep`: {
+        case 'sleep': {
             await sleep.execute(message)
             break;
         }
-        case `${prefix}status`: {
-            await status.execute(message, arrMsg[1], message.content.replace(arrMsg[0] + ' ' + arrMsg[1], '').trim())
+        case 'status': {
+            await status.execute(message, arrMsg[0], inputMsg.replace(arrMsg[0], '').trim())
             break;
         }
-        case `${prefix}stop`: {
+        case 'stop': {
             await stop.execute(message, undefined, false)
             break;
         }
-        case `${prefix}uptime`: {
+        case 'uptime': {
             await uptime.execute(message)
             break;
         }
-        case `${prefix}volume`: {
-            await volume.execute(message, arrMsg[1])
+        case 'volume': {
+            await volume.execute(message, arrMsg[0])
+            break;
+        }
+        default: {
+            message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
             break;
         }
     }
