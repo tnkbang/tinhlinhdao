@@ -21,7 +21,7 @@ async function onRequestMessage(message: Message) {
     const inputMsg = arrMsg.toString().replaceAll(',', ' ')
 
     if (!bot.prefixCommandsMap.get(command))
-        return message.reply('Hãy dùng: `/help` để lấy thông tin sử dụng !');
+        return message.reply('Hãy dùng: ' + `${prefix}help` + ' để lấy thông tin sử dụng !');
 
     return await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg.trim())
 }

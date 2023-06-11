@@ -13,12 +13,6 @@ import {
 } from "@discordjs/voice";
 import { Message, ReactionCollector, TextChannel, User } from "discord.js";
 import { promisify } from "node:util";
-import loop from "../commands/prefix/loop";
-import pause from "../commands/prefix/pause";
-import resume from "../commands/prefix/resume";
-import shuffle from "../commands/prefix/shuffle";
-import skip from "../commands/prefix/skip";
-import stop from "../commands/prefix/stop";
 import { bot } from "../index";
 import { QueueOptionsPreifx } from './../interfaces/QueueOptions';
 import { config } from "../utils/config";
@@ -224,16 +218,16 @@ export class MusicQueuePrefix {
             switch (reaction.emoji.name) {
                 case "⏭":
                     reaction.users.remove(user).catch(console.error);
-                    await skip.execute(playingMessage, '', member)
+                    await this.bot.prefixCommandsMap.get("skip")!.execute(playingMessage, '', member)
                     this.collector.stop();
                     break;
 
                 case "⏯":
                     reaction.users.remove(user).catch(console.error);
                     if (this.player.state.status == AudioPlayerStatus.Playing) {
-                        await pause.execute(playingMessage, '', member)
+                        await this.bot.prefixCommandsMap.get("pause")!.execute(playingMessage, '', member)
                     } else {
-                        await resume.execute(playingMessage, '', member)
+                        await this.bot.prefixCommandsMap.get("resume")!.execute(playingMessage, '', member)
                     }
                     break;
 
@@ -274,17 +268,17 @@ export class MusicQueuePrefix {
 
                 case "🔁":
                     reaction.users.remove(user).catch(console.error);
-                    await loop.execute(playingMessage, '', member)
+                    await this.bot.prefixCommandsMap.get("loop")!.execute(playingMessage, '', member)
                     break;
 
                 case "🔀":
                     reaction.users.remove(user).catch(console.error);
-                    await shuffle.execute(playingMessage, '', member)
+                    await this.bot.prefixCommandsMap.get("shuffle")!.execute(playingMessage, '', member)
                     break;
 
                 case "⏹":
                     reaction.users.remove(user).catch(console.error);
-                    await stop.execute(playingMessage, '', member, true)
+                    await this.bot.prefixCommandsMap.get("stop")!.execute(playingMessage, '', member, true)
                     this.collector.stop();
                     break;
 
