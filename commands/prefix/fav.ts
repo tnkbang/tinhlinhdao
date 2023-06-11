@@ -1,4 +1,6 @@
+import { Command } from './../../interfaces/Command';
 import {
+    Collection,
     EmbedBuilder,
     Message, TextChannel, VoiceBasedChannel
 } from "discord.js";
@@ -10,6 +12,17 @@ import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
 import { randomColor } from "../../utils/color";
 import { Song, SongData } from "../../structs/Song";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from "@discordjs/voice";
+
+const favKey = ['add', 'a', 'play', 'p', 'remove', 'r']
+const favOption = [add, add, play, play, remove, remove]
+const favCommandsMap = new Collection<string, Command>()
+
+favOption.forEach((value, index) => {
+    const cmd: Command = {
+        execute: value
+    }
+    favCommandsMap.set(favKey[index], cmd)
+})
 
 export default {
     data: { name: 'favorite', sname: 'fav;f' },
@@ -32,37 +45,16 @@ export default {
                 })
                 .catch(console.error);
 
-        if (!input) return readFavorite(message, fav)
+        if (!input) return read(message, fav)
 
         const arrMsg = input.split(' ')
-        switch (arrMsg[0]) {
-            case ('add'): {
-                await addFavorite(arrMsg, message, fav, queue)
-                break
-            }
-            case ('a'): {
-                await addFavorite(arrMsg, message, fav, queue)
-                break
-            }
-            case ('remove'): { }
-            case ('r'): { }
-            case ('play'): {
-                playFavorite(fav, message, queue, channel)
-                break
-            }
-            case ('p'): {
-                playFavorite(fav, message, queue, channel)
-                break
-            }
-            default: {
-                helpFavorite(message)
-                break
-            }
-        }
+
+        if (!favCommandsMap.get(arrMsg[0])) return
+        return await favCommandsMap.get(arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)
     }
 }
 
-function readFavorite(message: Message, fav: Favorite) {
+function read(message: Message, fav: Favorite) {
     if (!fav.isUser(message, fav.value.user))
         return message
             .reply({ content: i18n.__("favorite.notFavorite") })
@@ -83,13 +75,7 @@ function readFavorite(message: Message, fav: Favorite) {
     return message.reply({ embeds: [favEmbed] }).catch(console.error);
 }
 
-function helpFavorite(message: Message) {
-    return (message.channel as TextChannel)
-        .send({ content: "Trợ giúp danh sách yêu thích !\nTạm thời chưa có thông tin." })
-        .catch(console.error);
-}
-
-function playFavorite(fav: Favorite, message: Message, queue: MusicQueue | MusicQueuePrefix | undefined, channel: VoiceBasedChannel) {
+function play(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQueue | MusicQueuePrefix | undefined, channel: VoiceBasedChannel) {
     let lstFav: Song[] = []
     fav.value.user.some(value => {
         if (value.user_id == message.author.id) {
@@ -119,7 +105,7 @@ function playFavorite(fav: Favorite, message: Message, queue: MusicQueue | Music
     }
 }
 
-async function addFavorite(arrMsg: string[], message: Message, fav: Favorite, queue: MusicQueue | MusicQueuePrefix | undefined) {
+async function add(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQueue | MusicQueuePrefix | undefined) {
     if (arrMsg[1]) {
         let song;
         try {
@@ -154,4 +140,8 @@ async function addFavorite(arrMsg: string[], message: Message, fav: Favorite, qu
     return (message.channel as TextChannel)
         .send({ content: i18n.__("favorite.resultAdd") })
         .catch(console.error);
+}
+
+function remove(fav: Favorite, arrMsg: string[], message: Message) {
+    return message.reply({ content: 'Lệnh chưa được thiết lập !' }).catch(console.error);
 }

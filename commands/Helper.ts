@@ -23,8 +23,8 @@ function setHelp() {
 
     commands.forEach((cmd) => {
         helpEmbed.addFields({
-            name: `**${cmd.data.name}**`,
-            value: `${cmd.data.description}`,
+            name: `**${cmd.data?.name}**`,
+            value: `${cmd.data?.description}`,
             inline: true
         });
     });
