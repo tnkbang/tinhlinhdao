@@ -103,7 +103,7 @@
 		"description": "Hiển thị danh sách hàng đợi phát nhạc đang hoạt động",
 		"missingPermissionMessage": "Thiếu quyền để Quản lý tin nhắn hoặc Thêm biểu tượng cảm xúc",
 		"errorNotQueue": "❌ **Không có hàng đợi nào đang hoạt động trong máy chủ này**",
-		"currentPage": "Trang hiện tại - ",
+		"currentPage": "**Trang hiện tại - {page}/{length}**",
 		"embedTitle": "Danh sách hàng đợi\n",
 		"embedCurrentSong": "**Bài hát đang phát - [{title}]({url})**\n\n{info}"
 	},

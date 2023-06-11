@@ -19,7 +19,7 @@ export default {
 
         const repMsg = await message.reply("⏳ Loading queue...");
         const editMsg = await repMsg.edit({
-            content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`,
+            content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
             embeds: [embeds[currentPage]]
         });
 

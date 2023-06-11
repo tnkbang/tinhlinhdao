@@ -25,7 +25,7 @@ export default {
 
         if (interaction.replied)
             await interaction.editReply({
-                content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`,
+                content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
                 embeds: [embeds[currentPage]]
             });
 
