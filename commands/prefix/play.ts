@@ -38,12 +38,12 @@ export default {
         const url = argSongName;
 
         if (!isSearch) {
-            await message.reply("⏳ Loading...");
+            await message.react('⏳').catch(console.error)
         }
 
         // Start the playlist if playlist url was provided
         if (playlistPattern.test(url)) {
-            await message.reply("🔗 Link is playlist").catch(console.error);
+            await message.react('🔗').catch(console.error)
 
             const arrMsg = message.content.split(' ')
             return playlist.execute(message, message.content.replace(arrMsg[0], '').trim())
