@@ -47,6 +47,10 @@ export default {
 
         collector.on("collect", async (reaction, user) => {
             try {
+                if (user.id != interaction.user.id) {
+                    return reaction.users.remove(user)
+                }
+
                 if (reaction.emoji.name === "➡️") {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
@@ -67,7 +71,7 @@ export default {
                     collector.stop();
                     reaction.message.reactions.removeAll();
                 }
-                await reaction.users.remove(interaction.user.id);
+                await reaction.users.remove(user);
             } catch (error: any) {
                 console.error(error);
                 return (interaction.channel as TextChannel).send(error.message).catch(console.error);
