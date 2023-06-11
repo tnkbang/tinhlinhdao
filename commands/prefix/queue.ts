@@ -17,17 +17,16 @@ export default {
         let currentPage = 0;
         const embeds = generateQueueEmbed(message, queue.songs);
 
-        await message.reply("⏳ Loading queue...");
-
-        const repMsg = await message.reply({
+        const repMsg = await message.reply("⏳ Loading queue...");
+        const editMsg = await repMsg.edit({
             content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`,
             embeds: [embeds[currentPage]]
         });
 
         try {
-            await repMsg.react("⬅️");
-            await repMsg.react("⏹");
-            await repMsg.react("➡️");
+            await editMsg.react("⬅️");
+            await editMsg.react("⏹");
+            await editMsg.react("➡️");
         } catch (error: any) {
             console.error(error);
             (message.channel as TextChannel).send(error.message).catch(console.error);
@@ -36,7 +35,7 @@ export default {
         const filter = (reaction: MessageReaction, user: User) =>
             ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && message.author.id === user.id;
 
-        const collector = repMsg.createReactionCollector({ filter, time: 60000 });
+        const collector = editMsg.createReactionCollector({ filter, time: 60000 });
 
         collector.on("collect", async (reaction, user) => {
             try {
@@ -47,7 +46,7 @@ export default {
                 if (reaction.emoji.name === "➡️") {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
-                        repMsg.edit({
+                        editMsg.edit({
                             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
                             embeds: [embeds[currentPage]]
                         });
@@ -55,7 +54,7 @@ export default {
                 } else if (reaction.emoji.name === "⬅️") {
                     if (currentPage !== 0) {
                         --currentPage;
-                        repMsg.edit({
+                        editMsg.edit({
                             content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }),
                             embeds: [embeds[currentPage]]
                         });
