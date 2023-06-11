@@ -12,7 +12,7 @@ import { Song, SongData } from "../../structs/Song";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from "@discordjs/voice";
 
 export default {
-    data: { name: 'fav', sname: 'f' },
+    data: { name: 'favorite', sname: 'fav;f' },
     async execute(message: Message, input: string) {
         const fav = new Favorite();
         fav.get();

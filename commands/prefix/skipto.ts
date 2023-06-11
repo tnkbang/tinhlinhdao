@@ -40,7 +40,7 @@ export default {
         queue.player.stop();
 
         message
-            .reply({ content: i18n.__mf("skipto.result", { author: message.author.id, arg: playlistSlotArg - 1 }) })
+            .reply({ content: i18n.__mf("skipto.result", { author: message.author.id, arg: playlistSlotArg }) })
             .catch(console.error);
     }
 }

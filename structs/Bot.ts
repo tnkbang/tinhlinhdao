@@ -79,7 +79,9 @@ export class Bot {
 
       this.prefixCommandsMap.set(command.default.data.name, command.default);
       if (command.default.data.sname) {
-        this.prefixCommandsMap.set(command.default.data.sname, command.default);
+        command.default.data.sname.split(';').forEach((value: string) => {
+          this.prefixCommandsMap.set(value, command.default);
+        })
       }
     }
   }
