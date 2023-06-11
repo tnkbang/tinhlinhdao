@@ -26,6 +26,7 @@ export class Bot {
   public commands = new Collection<string, Command>();
   public slashCommands = new Array<ApplicationCommandDataResolvable>();
   public slashCommandsMap = new Collection<string, Command>();
+  public prefixCommandsMap = new Collection<string, Command>();
   public cooldowns = new Collection<string, Collection<Snowflake, number>>();
   public queues = new Collection<Snowflake, MusicQueue | MusicQueuePrefix>();
 
@@ -41,6 +42,7 @@ export class Bot {
       })
 
       this.registerSlashCommands();
+      this.registerPrefixCommands();
     });
 
     this.client.on("messageCreate", async (message) => {
@@ -66,6 +68,20 @@ export class Bot {
     }
 
     await rest.put(Routes.applicationCommands(this.client.user!.id), { body: this.slashCommands });
+  }
+
+  private async registerPrefixCommands() {
+    const commandFiles = readdirSync(join(__dirname, "..", "commands", "prefix")).filter((file) => !file.endsWith(".map"));
+
+    for (const file of commandFiles) {
+      const command = await import(join(__dirname, "..", "commands", "prefix", `${file}`));
+      if (!command.default.data) continue
+
+      this.prefixCommandsMap.set(command.default.data.name, command.default);
+      if (command.default.data.sname) {
+        this.prefixCommandsMap.set(command.default.data.sname, command.default);
+      }
+    }
   }
 
   private async onInteractionCreate() {

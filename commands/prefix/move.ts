@@ -5,12 +5,14 @@ import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js";
 
 export default {
-    execute(message: Message, moveFrom: string, moveTo: string) {
-        if (!moveFrom || !moveTo)
+    data: { name: 'move', sname: 'm' },
+    execute(message: Message, input: string) {
+        if (!input)
             return message.reply(i18n.__("move.errorInput")).catch(console.error);
 
-        const movefromArg = Number.parseInt(moveFrom)
-        const movetoArg = Number.parseInt(moveTo)
+        const arrMsg = input.split(' ')
+        const movefromArg = Number.parseInt(arrMsg[0])
+        const movetoArg = Number.parseInt(arrMsg[1])
 
         const guildMemer = message.guild!.members.cache.get(message.author.id);
         const queue = bot.queues.get(message.guild!.id);

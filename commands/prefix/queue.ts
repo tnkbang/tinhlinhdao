@@ -9,6 +9,7 @@ import { i18n } from "../../utils/i18n";
 import { generateQueueEmbed } from "../Helper";
 
 export default {
+    data: { name: 'queue', sname: 'q' },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);
         if (!queue || !queue.songs.length) return message.reply({ content: i18n.__("queue.errorNotQueue") });

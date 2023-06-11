@@ -4,12 +4,12 @@ import {
     StringSelectMenuBuilder,
     StringSelectMenuInteraction
 } from "discord.js";
-import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import youtube, { Video } from 'youtube-sr';
 import play from "./play";
 
 export default {
+    data: { name: 'search', sname: 's' },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("search.errorInput") }).catch(console.error)
         const query = input

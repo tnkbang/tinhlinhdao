@@ -4,6 +4,7 @@ import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js";
 
 export default {
+    data: { name: 'volume', sname: 'v' },
     execute(message: Message, volume: string) {
         if (!volume)
             return message.reply({ content: i18n.__("volume.errorInput") }).catch(console.error);

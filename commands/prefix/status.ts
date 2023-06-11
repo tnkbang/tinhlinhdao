@@ -5,8 +5,13 @@ import { config } from "../../utils/config";
 import { Message } from "discord.js";
 
 export default {
-    execute(message: Message, type: string, value: string) {
+    data: { name: 'status' },
+    execute(message: Message, input: string) {
         const ownerID = config.OWNER
+        const arrMsg = input.split(' ')
+        const type = arrMsg[0]
+        const value = input.replace(arrMsg[0], '').trim()
+
         if (message.member?.user.id == ownerID) {
 
             const thisType = getTypeStatus(type)

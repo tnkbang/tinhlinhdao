@@ -12,6 +12,7 @@ import { MusicQueuePrefix } from '../../structs/MusicQueuePrefix';
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 
 export default {
+    data: { name: 'playlist', sname: 'pl' },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("playlist.errorInput") }).catch(console.error)
         let argSongName = input
