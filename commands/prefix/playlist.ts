@@ -65,15 +65,10 @@ export default {
 
         let playlistEmbed = new EmbedBuilder()
             .setTitle(`${playlist.data.title}`)
-            .setDescription(playlist.videos.map((song: Song, index: number) => `${index + 1}. ${song.title}`).join("\n"))
+            .setDescription(playlist.videos.map((song: Song, index: number) => `${index + 1}. ${song.title}`).join("\n").slice(0, 4095))
             .setURL(playlist.data.url!)
             .setColor(randomColor())
             .setTimestamp();
-
-        if (playlistEmbed.data.description!.length >= 2048)
-            playlistEmbed.setDescription(
-                playlistEmbed.data.description!.substr(0, 2007) + i18n.__("playlist.playlistCharLimit")
-            );
 
         message
             .reply({
