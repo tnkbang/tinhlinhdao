@@ -1,4 +1,5 @@
 import { bot } from './../../index';
+import { i18n } from "../../utils/i18n";
 import { config } from '../../utils/config';
 import { Message, MessageType } from 'discord.js'
 
@@ -21,7 +22,7 @@ async function onRequestMessage(message: Message) {
     const inputMsg = arrMsg.toString().replaceAll(',', ' ')
 
     if (!bot.prefixCommandsMap.get(command))
-        return message.reply('Hãy dùng: ' + `${prefix}help` + ' để lấy thông tin sử dụng !');
+        return message.reply({ content: i18n.__mf("help.errInput", { command: `${prefix}help` }) }).catch(console.error);
 
     return await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg.trim())
 }
