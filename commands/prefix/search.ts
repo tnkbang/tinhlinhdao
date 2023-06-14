@@ -20,7 +20,7 @@ export default {
 
         const search = query;
 
-        await message.reply("⏳ Loading...").catch(console.error);
+        const repMsg = await message.reply("⏳ Loading...")
 
         let results: Video[] = [];
 
@@ -50,15 +50,14 @@ export default {
                 .addOptions(options)
         );
 
-        const followUp = await message.reply({
+        await repMsg.edit({
             content: "Choose songs to play",
             components: [row]
         });
 
-        followUp
-            .awaitMessageComponent({
-                time: 30000
-            })
+        repMsg.awaitMessageComponent({
+            time: 30000
+        })
             .then((selectInteraction) => {
                 if (!(selectInteraction instanceof StringSelectMenuInteraction)) return;
 

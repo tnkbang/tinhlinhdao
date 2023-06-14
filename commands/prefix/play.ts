@@ -88,6 +88,5 @@ export default {
         bot.queues.set(message.guild!.id, newQueue);
 
         newQueue.enqueue(song);
-        message.delete().catch(console.error);
     }
 }

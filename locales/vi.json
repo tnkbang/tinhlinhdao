@@ -127,7 +127,8 @@
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
 		"resultEmbedTitle": "**Gửi số bài hát mà bạn chọn trong danh sách ở trên**",
 		"resultEmbedDesc": "Kết quả tìm kiểm cho: {search}",
-		"optionQuery": "Search query"
+		"optionQuery": "Search query",
+		"errorInput": "Tham số nhập vào không hợp lệ !"
 	},
 	"shuffle": {
 		"description": "Đảo hàng đợi",
