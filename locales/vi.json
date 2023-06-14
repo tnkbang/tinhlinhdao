@@ -175,7 +175,7 @@
 	},
 	"uptime": {
 		"description": "Kiểm tra lần cập nhật gần nhất.",
-		"result": "Cập nhật: `{days} ngày, {hours} giờ, {minutes} phút, {seconds} giây.`"
+		"result": "Cập nhật: {time}"
 	},
 	"sleep": {
 		"description": "Tính chu kỳ ngủ.",

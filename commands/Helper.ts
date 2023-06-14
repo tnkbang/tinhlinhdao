@@ -143,17 +143,8 @@ function getTypeStatus(type: string | null) {
 }
 
 function setUptime(interaction: ChatInputCommandInteraction | Message) {
-    let seconds = Math.floor(bot.client.uptime! / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    seconds %= 60;
-    minutes %= 60;
-    hours %= 24;
-
     return interaction
-        .reply({ content: i18n.__mf("uptime.result", { days: days, hours: hours, minutes: minutes, seconds: seconds }) })
+        .reply({ content: i18n.__mf("uptime.result", { time: `<t:${Math.floor(Date.now() / 1000 - bot.client.uptime! / 1000)}:R>` }) })
         .catch(console.error);
 }
 
