@@ -4,7 +4,7 @@ import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js"
 
 export default {
-    data: { name: 'skipto', sname: 'st' },
+    data: { name: 'skipto', sname: 'st', type: 'music' },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("skipto.errorInput") }).catch(console.error)
         const playlistSlotArg = Number.parseInt(input)

@@ -6,7 +6,7 @@ import { randomColor } from '../../utils/color';
 import { EmbedBuilder, Message } from "discord.js";
 
 export default {
-    data: { name: 'lyrics', sname: 'ly' },
+    data: { name: 'lyrics', sname: 'ly', type: 'music' },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);
 

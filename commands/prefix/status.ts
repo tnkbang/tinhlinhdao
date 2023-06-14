@@ -5,7 +5,7 @@ import { config } from "../../utils/config";
 import { Message } from "discord.js";
 
 export default {
-    data: { name: 'status' },
+    data: { name: 'status', type: 'admin' },
     execute(message: Message, input: string) {
         const ownerID = config.OWNER
         const arrMsg = input.split(' ')

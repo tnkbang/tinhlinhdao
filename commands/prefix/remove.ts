@@ -7,7 +7,7 @@ import { Message } from "discord.js";
 const pattern = /^[0-9]{1,2}(\s*,\s*[0-9]{1,2})*$/;
 
 export default {
-    data: { name: 'remove', sname: 'r' },
+    data: { name: 'remove', sname: 'r', type: 'music' },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("remove.errorInput") }).catch(console.error)
         const guildMemer = message.guild!.members.cache.get(message.author.id);

@@ -25,7 +25,7 @@ favOption.forEach((value, index) => {
 })
 
 export default {
-    data: { name: 'favorite', sname: 'fav;f' },
+    data: { name: 'favorite', sname: 'fav;f', type: 'music' },
     async execute(message: Message, input: string) {
         const fav = new Favorite();
         fav.get();

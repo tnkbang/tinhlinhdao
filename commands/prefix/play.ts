@@ -11,7 +11,7 @@ import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice
 import playlist from "./playlist";
 
 export default {
-    data: { name: 'play', sname: 'p' },
+    data: { name: 'play', sname: 'p', type: 'music' },
     async execute(message: Message, input: string, isSearch: boolean = false) {
         let argSongName = input;
 

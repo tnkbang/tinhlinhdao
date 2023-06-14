@@ -4,7 +4,7 @@ import { canModifyQueue } from '../../utils/queue';
 import { GuildMember, Message } from "discord.js";
 
 export default {
-    data: { name: 'loop', sname: 'lp' },
+    data: { name: 'loop', sname: 'lp', type: 'music' },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);
         if (author == undefined) author = message.guild!.members.cache.get(message.author.id);
