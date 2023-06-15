@@ -13,25 +13,51 @@ import { i18n } from "../utils/i18n";
 import { Song } from "../structs/Song";
 import { randomColor } from "../utils/color";
 
-function setHelp() {
-    const commands = bot.slashCommandsMap;
+function setHelp(type: string) {
+    const commands = getCommandOfType(type)
 
     let helpEmbed = new EmbedBuilder()
         .setTitle(i18n.__mf("help.embedTitle", { botname: bot.client.user!.username }))
-        .setDescription(i18n.__("help.embedDescription"))
+        .setDescription(i18n.__mf("help.embedDescription", { title: type }))
         .setColor(randomColor());
 
     commands.forEach((cmd) => {
         helpEmbed.addFields({
-            name: `**${cmd.data?.name}**`,
-            value: `${cmd.data?.description}`,
+            name: `**${cmd.name}**`,
+            value: `${cmd.description}`,
             inline: true
         });
     });
 
+    if (commands.length == 0)
+        helpEmbed.setDescription(i18n.__mf("help.notValue", { title: type }))
+
     helpEmbed.setTimestamp();
 
     return helpEmbed
+}
+
+interface HelpOptions {
+    name?: string,
+    description?: string
+}
+
+function getCommandOfType(type: string) {
+    const commands = bot.prefixCommandsMap
+    let result: HelpOptions[] = []
+    let preCmd: any
+
+    commands.forEach((cmd) => {
+        if (cmd.data?.type == type && cmd.execute != preCmd) {
+            const item: HelpOptions = {
+                name: cmd.data?.name,
+                description: cmd.data?.description
+            }
+            result.push(item)
+            preCmd = cmd.execute
+        }
+    })
+    return result
 }
 
 function setInvite() {

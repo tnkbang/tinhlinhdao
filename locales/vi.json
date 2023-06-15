@@ -12,7 +12,8 @@
 		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó.",
 		"errInput": "Sai cú pháp! Sử dụng `{command}` để lấy thông tin sử dụng.",
 		"embedTitle": "{botname} Help",
-		"embedDescription": "Hiện thị tất cả câu lệnh sẵn có."
+		"embedDescription": "Hiển thị tất cả câu lệnh sẵn có của {title}.",
+		"notValue": "Không tìm thấy câu lệnh nào của {title}."
 	},
 	"invite": {
 		"description": "Nhận đường liên kết để mời bot."
