@@ -1,4 +1,4 @@
-import { Command } from './../../interfaces/Command';
+import { CommandPrefix } from './../../interfaces/Command';
 import {
     Collection,
     EmbedBuilder,
@@ -15,10 +15,10 @@ import { DiscordGatewayAdapterCreator, joinVoiceChannel } from "@discordjs/voice
 
 const favKey = ['add', 'a', 'play', 'p', 'remove', 'r']
 const favOption = [add, add, play, play, remove, remove]
-const favCommandsMap = new Collection<string, Command>()
+const favCommandsMap = new Collection<string, CommandPrefix>()
 
 favOption.forEach((value, index) => {
-    const cmd: Command = {
+    const cmd: CommandPrefix = {
         execute: value
     }
     favCommandsMap.set(favKey[index], cmd)

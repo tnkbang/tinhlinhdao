@@ -14,7 +14,7 @@ import {
 import { readdirSync } from "fs";
 import { join } from "path";
 import onRequestMessage from "../commands/prefix/main";
-import { Command } from "../interfaces/Command";
+import { Command, CommandPrefix } from "../interfaces/Command";
 import { checkPermissions, PermissionResult } from "../utils/checkPermissions";
 import { config } from "../utils/config";
 import { i18n } from "../utils/i18n";
@@ -26,7 +26,7 @@ export class Bot {
   public commands = new Collection<string, Command>();
   public slashCommands = new Array<ApplicationCommandDataResolvable>();
   public slashCommandsMap = new Collection<string, Command>();
-  public prefixCommandsMap = new Collection<string, Command>();
+  public prefixCommandsMap = new Collection<string, CommandPrefix>();
   public cooldowns = new Collection<string, Collection<Snowflake, number>>();
   public queues = new Collection<Snowflake, MusicQueue | MusicQueuePrefix>();
 
