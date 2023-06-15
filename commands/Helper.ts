@@ -45,19 +45,17 @@ interface HelpOptions {
 function getCommandOfType(type: string) {
     const commands = bot.prefixCommandsMap
     let result: HelpOptions[] = []
-    let preCmd: any
 
     commands.forEach((cmd) => {
-        if (cmd.data?.type == type && cmd.execute != preCmd) {
+        if (cmd.data?.type == type) {
             const item: HelpOptions = {
                 name: cmd.data?.name,
                 description: cmd.data?.description
             }
             result.push(item)
-            preCmd = cmd.execute
         }
     })
-    return result
+    return result.filter((i, p, s) => s.findIndex(v => v.name === i.name) === p)
 }
 
 function setInvite() {
