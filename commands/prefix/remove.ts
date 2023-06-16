@@ -3,11 +3,17 @@ import { i18n } from "../../utils/i18n";
 import { Song } from '../../structs/Song';
 import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 const pattern = /^[0-9]{1,2}(\s*,\s*[0-9]{1,2})*$/;
 
 export default {
-    data: { name: 'remove', sname: 'r', type: 'music' },
+    data: {
+        name: 'remove',
+        sname: 'r',
+        type: CommandType.Music,
+        description: i18n.__("remove.description")
+    },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("remove.errorInput") }).catch(console.error)
         const guildMemer = message.guild!.members.cache.get(message.author.id);

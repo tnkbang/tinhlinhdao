@@ -2,9 +2,15 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { canModifyQueue } from '../../utils/queue';
 import { GuildMember, Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'shuffle', sname: 'sf', type: 'music' },
+    data: {
+        name: 'shuffle',
+        sname: 'sf',
+        type: CommandType.Music,
+        description: i18n.__("shuffle.description")
+    },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);
         if (author == undefined) author = message.guild!.members.cache.get(message.author.id);

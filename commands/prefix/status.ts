@@ -3,9 +3,14 @@ import { i18n } from "../../utils/i18n";
 import { getTypeStatus } from '../Helper';
 import { config } from "../../utils/config";
 import { Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'status', type: 'admin' },
+    data: {
+        name: 'status',
+        type: CommandType.Administrator,
+        description: i18n.__("status.description")
+    },
     execute(message: Message, input: string) {
         const ownerID = config.OWNER
         const arrMsg = input.split(' ')

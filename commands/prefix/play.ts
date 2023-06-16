@@ -9,9 +9,15 @@ import { playlistPattern } from '../../utils/patterns';
 import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 import playlist from "./playlist";
+import { CommandType } from "../../interfaces/Command";
 
 export default {
-    data: { name: 'play', sname: 'p', type: 'music' },
+    data: {
+        name: 'play',
+        sname: 'p',
+        type: CommandType.Music,
+        description: i18n.__("play.description")
+    },
     async execute(message: Message, input: string, isSearch: boolean = false) {
         let argSongName = input;
 
