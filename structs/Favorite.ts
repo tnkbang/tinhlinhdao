@@ -31,6 +31,14 @@ export class Favorite {
         })
     }
 
+    public notMusic(message: Message, fav: Favorite) {
+        return fav.value.user.some(value => {
+            if (value.user_id == message.author.id) {
+                if (value.musics.length == 0) return true
+            }
+        })
+    }
+
     private isFavorite(songs: SongData[], url: string) {
         return songs.some(value => {
             if (value.url == url) return true

@@ -65,14 +65,8 @@ function read(message: Message, fav: Favorite) {
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
 
-    let isNotFav: boolean = false;
-    fav.value.user.some(value => {
-        if (value.user_id == message.author.id) {
-            if (value.musics.length == 0) isNotFav = true
-            return true
-        }
-    })
-    if (isNotFav) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
+    let notMusic = fav.notMusic(message, fav)
+    if (notMusic) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
 
     let favEmbed = new EmbedBuilder()
         .setTitle(i18n.__("favorite.title"))
@@ -97,6 +91,9 @@ function play(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQue
             return true
         }
     })
+
+    let notMusic = fav.notMusic(message, fav)
+    if (notMusic) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
 
     if (queue) {
         queue.songs.push(...lstFav)
