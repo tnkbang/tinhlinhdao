@@ -209,6 +209,9 @@ export class MusicQueuePrefix {
             if (!this.songs) return;
 
             const member = await playingMessage.guild!.members.fetch(user);
+            Object.defineProperty(this.message, 'user', {
+                value: user
+            })
 
             if (!song.checkOnVoice(this.message)) {
                 reaction.users.remove(user).catch(console.error);
