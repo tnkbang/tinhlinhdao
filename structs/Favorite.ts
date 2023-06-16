@@ -1,6 +1,8 @@
-import { Message, TextChannel } from "discord.js";
+import { Message } from "discord.js";
+import path from "path";
 import { SongData } from './Song';
 const fs = require('fs');
+const filePath = path.join(__dirname, "..", "data", "favorite.json")
 
 export interface Fav {
     user: users[]
@@ -14,7 +16,7 @@ export class Favorite {
     public value: Fav;
     public get() {
         try {
-            const jsonString = fs.readFileSync(__dirname + "/data.json");
+            const jsonString = fs.readFileSync(filePath);
             this.value = JSON.parse(jsonString);
         } catch (error) {
             this.value = {
@@ -60,6 +62,6 @@ export class Favorite {
 
     public save() {
         const json = JSON.stringify(this.value);
-        fs.writeFileSync(__dirname + "/data.json", json, 'utf8');
+        fs.writeFileSync(filePath, json, 'utf8');
     }
 }
