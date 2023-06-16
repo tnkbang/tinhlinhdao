@@ -65,6 +65,15 @@ function read(message: Message, fav: Favorite) {
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
 
+    let isNotFav: boolean = false;
+    fav.value.user.some(value => {
+        if (value.user_id == message.author.id) {
+            if (value.musics.length == 0) isNotFav = true
+            return true
+        }
+    })
+    if (isNotFav) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
+
     let favEmbed = new EmbedBuilder()
         .setTitle(i18n.__("favorite.title"))
         .setColor(randomColor())
@@ -155,6 +164,7 @@ function remove(fav: Favorite, arrMsg: string[], message: Message) {
 
     let arrRemove: SongData[] = []
     arrMsg = arrMsg.slice(1)
+    if (arrMsg.length == 0) return message.reply({ content: i18n.__("favorite.notInput") }).catch(console.error);
 
     const inputValid = arrMsg.some(value => {
         if (!Number.parseInt(value)) return true
