@@ -7,9 +7,15 @@ import {
 import { i18n } from "../../utils/i18n";
 import youtube, { Video } from 'youtube-sr';
 import play from "./play";
+import { CommandType } from "../../interfaces/Command";
 
 export default {
-    data: { name: 'search', sname: 's', type: 'music' },
+    data: {
+        name: 'search',
+        sname: 's',
+        type: CommandType.Music,
+        description: i18n.__("search.description")
+    },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("search.errorInput") }).catch(console.error)
         const query = input

@@ -2,9 +2,15 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'volume', sname: 'v', type: 'music' },
+    data: {
+        name: 'volume',
+        sname: 'v',
+        type: CommandType.Music,
+        description: i18n.__("volume.description")
+    },
     execute(message: Message, volume: string) {
         if (!volume)
             return message.reply({ content: i18n.__("volume.errorInput") }).catch(console.error);

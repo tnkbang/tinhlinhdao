@@ -10,9 +10,15 @@ import { randomColor } from "../../utils/color";
 import { Playlist } from '../../structs/Playlist';
 import { MusicQueuePrefix } from '../../structs/MusicQueuePrefix';
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
+import { CommandType } from "../../interfaces/Command";
 
 export default {
-    data: { name: 'playlist', sname: 'pl', type: 'music' },
+    data: {
+        name: 'playlist',
+        sname: 'pl',
+        type: CommandType.Music,
+        description: i18n.__("playlist.description")
+    },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("playlist.errorInput") }).catch(console.error)
         let argSongName = input

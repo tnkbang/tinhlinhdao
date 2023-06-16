@@ -2,9 +2,15 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n"
 import { canModifyQueue } from "../../utils/queue";
 import { Message } from "discord.js"
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'skipto', sname: 'st', type: 'music' },
+    data: {
+        name: 'skipto',
+        sname: 'st',
+        type: CommandType.Music,
+        description: i18n.__("skipto.description")
+    },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("skipto.errorInput") }).catch(console.error)
         const playlistSlotArg = Number.parseInt(input)

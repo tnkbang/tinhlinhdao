@@ -3,9 +3,15 @@ import { i18n } from "../../utils/i18n";
 import { splitBar } from "string-progressbar";
 import { randomColor } from "../../utils/color";
 import { EmbedBuilder, Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'nowplaying', sname: 'np', type: 'music' },
+    data: {
+        name: 'nowplaying',
+        sname: 'np',
+        type: CommandType.Music,
+        description: i18n.__("nowplaying.description")
+    },
     execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);
 

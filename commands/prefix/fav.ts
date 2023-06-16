@@ -1,4 +1,4 @@
-import { CommandPrefix } from './../../interfaces/Command';
+import { CommandPrefix, CommandType } from './../../interfaces/Command';
 import {
     Collection,
     EmbedBuilder,
@@ -25,7 +25,12 @@ favOption.forEach((value, index) => {
 })
 
 export default {
-    data: { name: 'favorite', sname: 'fav;f', type: 'music' },
+    data: {
+        name: 'favorite',
+        sname: 'fav;f',
+        type: CommandType.Music,
+        description: i18n.__("favorite.description")
+    },
     async execute(message: Message, input: string) {
         const fav = new Favorite();
         fav.get();

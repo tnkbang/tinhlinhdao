@@ -4,9 +4,15 @@ import { i18n } from "../../utils/i18n";
 import lyricsFinder from "lyrics-finder";
 import { randomColor } from '../../utils/color';
 import { EmbedBuilder, Message } from "discord.js";
+import { CommandType } from '../../interfaces/Command';
 
 export default {
-    data: { name: 'lyrics', sname: 'ly', type: 'music' },
+    data: {
+        name: 'lyrics',
+        sname: 'ly',
+        type: CommandType.Music,
+        description: i18n.__("lyrics.description")
+    },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);
 

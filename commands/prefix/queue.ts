@@ -7,9 +7,15 @@ import {
 import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { generateQueueEmbed } from "../Helper";
+import { CommandType } from "../../interfaces/Command";
 
 export default {
-    data: { name: 'queue', sname: 'q', type: 'music' },
+    data: {
+        name: 'queue',
+        sname: 'q',
+        type: CommandType.Music,
+        description: i18n.__("queue.description")
+    },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);
         if (!queue || !queue.songs.length) return message.reply({ content: i18n.__("queue.errorNotQueue") });

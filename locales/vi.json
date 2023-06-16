@@ -9,14 +9,14 @@
 		"description": "Liệt kê tất cả đoạn âm thanh có sẵn"
 	},
 	"help": {
-		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó.",
+		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó",
 		"errInput": "Sai cú pháp! Sử dụng `{command}` để lấy thông tin sử dụng.",
 		"embedTitle": "{botname} Help",
 		"embedDescription": "Hiển thị tất cả câu lệnh sẵn có của {title}.",
 		"notValue": "Không tìm thấy câu lệnh nào của {title}."
 	},
 	"invite": {
-		"description": "Nhận đường liên kết để mời bot."
+		"description": "Nhận đường liên kết để mời bot"
 	},
 	"loop": {
 		"description": "Bật tắt chức năng lặp lại",
@@ -133,7 +133,7 @@
 	},
 	"shuffle": {
 		"description": "Đảo hàng đợi",
-		"errorNotQueue": "Không có hàng đợi nào đang hoạt động.",
+		"errorNotQueue": "Không có hàng đợi nào đang hoạt động",
 		"result": "<@{author}> 🔀 đã đảo hàng đợi"
 	},
 	"skip": {
@@ -152,12 +152,12 @@
 		}
 	},
 	"stop": {
-		"description": "Dừng phát nhạc.",
+		"description": "Dừng phát nhạc",
 		"errorNotQueue": "Hiện tại không có bài hát nào đang phát.",
 		"result": "<@{author}> ⏹ đã dừng phát nhạc!"
 	},
 	"volume": {
-		"description": "Điều chỉnh âm lượng của bài hát đang phát.",
+		"description": "Điều chỉnh âm lượng của bài hát đang phát",
 		"errorNotQueue": "Hiện tại không có bài hát nào đang phát.",
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
 		"currentVolume": "🔊 Âm lượng hiện tại là: **{volume}%**",
@@ -175,17 +175,17 @@
 		"errorCommand": "Có lỗi xảy ra khi đang cố gắng thực hiện yêu cầu của bạn, vui lòng thử lại sau ít phút."
 	},
 	"uptime": {
-		"description": "Kiểm tra lần cập nhật gần nhất.",
+		"description": "Kiểm tra lần cập nhật gần nhất",
 		"result": "Cập nhật: {time}"
 	},
 	"sleep": {
-		"description": "Tính chu kỳ ngủ.",
+		"description": "Tính chu kỳ ngủ",
 		"strInfo": "Bây giờ là: **{time}**. Nếu bạn ngủ ngay bây giờ bạn nên thức dậy vào:",
 		"strContent": "⏰ **{time}** cho {cycle} chu kỳ - ngủ {sleeping}",
 		"result": "Lệnh đang cập nhật\nVui lòng sử dụng lại sau!"
 	},
 	"status": {
-		"description": "Đặt trạng thái cho bot.",
+		"description": "Đặt trạng thái cho bot",
 		"type": "Loại trạng thái",
 		"value": "Mô tả trạng thái",
 		"errInput": "Tham số nhập vào không hợp lệ !",
@@ -193,6 +193,7 @@
 		"result": "Đã đặt trạng thái cho bot thành công !"
 	},
 	"favorite": {
+		"description": "Thêm các bài hát vào yêu thích",
 		"title": "Danh sách bài hát yêu thích của bạn !",
 		"resultPlay": "Đã thêm các bài hát từ danh sách yêu thích vào hàng đợi !",
 		"resultAdd": "Đã thêm vào danh sách yêu thích !",
