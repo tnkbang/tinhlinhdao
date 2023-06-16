@@ -16,6 +16,6 @@
     "sourceMap": true,
     "strictPropertyInitialization": false
   },
-  "include": ["./", "./config.json", "./locales/*.json", "./structs/*.json"],
+  "include": ["./", "./config.json", "./locales/*.json", "./data/*.json"],
   "exclude": ["./dist", "./node_modules"]
 }
