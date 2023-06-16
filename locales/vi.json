@@ -197,6 +197,8 @@
 		"title": "Danh sách bài hát yêu thích của bạn !",
 		"resultPlay": "Đã thêm các bài hát từ danh sách yêu thích vào hàng đợi !",
 		"resultAdd": "Đã thêm vào danh sách yêu thích !",
+		"errInput": "Tham số nhập vào không hợp lệ !",
+		"resultRemove": "Đã xóa bài hát từ danh sách yêu thích !",
 		"notFavorite": "Bạn chưa thêm bài hát nào vào danh sách yêu thích !",
 		"notPlaying": "Không có bài hát nào đang phát !"
 	},

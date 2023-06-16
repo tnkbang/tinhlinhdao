@@ -148,5 +148,33 @@ async function add(fav: Favorite, arrMsg: string[], message: Message, queue: Mus
 }
 
 function remove(fav: Favorite, arrMsg: string[], message: Message) {
-    return message.reply({ content: 'Lệnh chưa được thiết lập !' }).catch(console.error);
+    if (!fav.isUser(message, fav.value.user))
+        return message
+            .reply({ content: i18n.__("favorite.notFavorite") })
+            .catch(console.error);
+
+    let arrRemove: SongData[] = []
+    arrMsg = arrMsg.slice(1)
+
+    const inputValid = arrMsg.some(value => {
+        if (!Number.parseInt(value)) return true
+    })
+    if (inputValid) return message.reply({ content: i18n.__("favorite.errInput") }).catch(console.error);
+
+    fav.value.user.some(value => {
+        if (value.user_id == message.author.id) {
+            arrMsg.forEach(i => {
+                const number = Number.parseInt(i)
+                if (value.musics[number - 1]) arrRemove.push(value.musics[number - 1])
+            })
+
+            value.musics = value.musics.filter(ar => !arrRemove.find(rm => (rm.url === ar.url)))
+            return true
+        }
+    })
+
+    fav.save()
+    return (message.channel as TextChannel)
+        .send({ content: i18n.__("favorite.resultRemove") })
+        .catch(console.error);
 }
