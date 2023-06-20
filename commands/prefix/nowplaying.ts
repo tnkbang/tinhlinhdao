@@ -10,7 +10,14 @@ export default {
         name: 'nowplaying',
         sname: 'np',
         type: CommandType.Music,
-        description: i18n.__("nowplaying.description")
+        description: i18n.__("nowplaying.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}nowplaying**` + '\n' +
+                    `• **${bot.prefix}np**`
+            }
+        ]
     },
     execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);

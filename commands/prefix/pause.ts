@@ -8,7 +8,13 @@ export default {
     data: {
         name: 'pause',
         type: CommandType.Music,
-        description: i18n.__("pause.description")
+        description: i18n.__("pause.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `**${bot.prefix}pause**`
+            }
+        ]
     },
     async execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);

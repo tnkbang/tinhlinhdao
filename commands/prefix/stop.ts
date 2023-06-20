@@ -8,7 +8,13 @@ export default {
     data: {
         name: 'stop',
         type: CommandType.Music,
-        description: i18n.__("stop.description")
+        description: i18n.__("stop.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `**${bot.prefix}stop**`
+            }
+        ]
     },
     execute(message: Message, input: string, author: GuildMember | undefined, isReact: boolean = false) {
         const queue = bot.queues.get(message.guild!.id);

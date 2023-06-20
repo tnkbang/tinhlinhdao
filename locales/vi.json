@@ -9,11 +9,17 @@
 		"description": "Liệt kê tất cả đoạn âm thanh có sẵn"
 	},
 	"help": {
-		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó",
+		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó.",
 		"errInput": "Sai cú pháp! Sử dụng `{command}` để lấy thông tin sử dụng.",
 		"embedTitle": "{botname} Help",
 		"embedDescription": "Hiển thị tất cả câu lệnh sẵn có của {title}.",
-		"notValue": "Không tìm thấy câu lệnh nào của {title}."
+		"notValue": "Không tìm thấy thông tin của từ khóa **{title}**.",
+		"fieldsList": "Xem tất cả các lệnh của bot.",
+		"fieldsAdmin": "Xem bộ lệnh mà chỉ người quản lý bot mới có thể dùng.",
+		"fieldsInfo": "Xem bộ lệnh thuộc về truy xuất thông tin.",
+		"fieldsMusic": "Xem bộ lệnh dùng để phát nhạc.",
+		"fieldsMISC": "Xem các lệnh linh tinh khác của bot.",
+		"fieldsExample": "Để xem hướng dẫn về cách sử dụng chức năng yêu thích của bot thì bạn có thể dùng một trong các cách sau đều được."
 	},
 	"invite": {
 		"description": "Nhận đường liên kết để mời bot"
@@ -32,6 +38,7 @@
 	"move": {
 		"description": "Di chuyển bài hát đến vị trí chỉ định",
 		"errorNotQueue": "Không có hàng đợi nào đang hoạt động.",
+		"usages": "là số thứ tự của bài hát trong hàng đợi.",
 		"usagesReply": "Cách sử dụng: {prefix}move <thứ tự trong hàng đợi>",
 		"result": "<@{author}> 🚚 đã di chuyển **{title}** đến vị trí {index} trong hàng đợi.",
 		"args": {
@@ -60,6 +67,7 @@
 		"description": "Phát nhạc từ YouTube hoặc Soundcloud",
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
 		"errorNotInSameChannel": "Bạn phải ở cùng kênh thoại với {user}",
+		"usage": "Có thể sử dụng **<url>** như là Link YouTube, Tên Video, Link Soundcloud",
 		"usageReply": "Cách sử dụng: {prefix}play <Link YouTube | Tên Video | Link Soundcloud>",
 		"missingPermissionConnect": "Không thể kết nối đến kênh thoại, không có đủ quyền hạn",
 		"missingPermissionSpeak": "Không thể phát nhạc vì không có quyền nói!",
@@ -81,10 +89,12 @@
 		"leaveChannel": "Đã rời khỏi kênh thoại...",
 		"songNotFound": "Không thể tìm thấy đoạn âm thanh",
 		"songAccessErr": "Video bị giới hạn độ tuổi, ở chế độ riêng tư hoặc không khả dụng!",
-		"errorNoResults": "Không tìm thấy bài hát"
+		"errorNoResults": "Không tìm thấy bài hát",
+		"usages": "play.usages"
 	},
 	"playlist": {
 		"description": "Phát danh sách nhạc từ link YouTube",
+		"usages": "Có thể sử dụng **<url playlist>** như là Link danh sách nhạc từ YouTube, Tên danh sách nhạc",
 		"usagesReply": "Cách sử dụng: {prefix}playlist <Link danh sách nhạc từ YouTube | Tên danh sách nhạc>",
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
 		"errorNotInSameChannel": "Bạn phải ở cùng kênh thoại với {user}",
@@ -112,8 +122,10 @@
 	"remove": {
 		"description": "Loại bỏ bài hát khỏi hàng đợi",
 		"errorNotQueue": "Không có hàng đợi nào đang hoạt động.",
+		"usage": "là số thứ tự bài hát trong hàng đợi.",
 		"usageReply": "Cách sử dụng: {prefix}remove <số thứ tự bài hát trong hàng đợi>",
-		"result": "<@{author}> ❌ đã xóa **{title}** khỏi hàng đợi."
+		"result": "<@{author}> ❌ đã xóa **{title}** khỏi hàng đợi.",
+		"usages": "remove.usages"
 	},
 	"resume": {
 		"description": "Tiếp tục phát bài hát hiện đang bị tạm dừng",
@@ -123,6 +135,7 @@
 	},
 	"search": {
 		"description": "Tìm kiếm và chọn video để phát",
+		"usage": "Có thể sử dụng **<url>** như là Link YouTube, Tên Video, Link Soundcloud",
 		"usageReply": "Cách sử dụng: {prefix}{name} <tên video>",
 		"errorAlreadyCollector": "Hiện đang có một người dùng khác đang tìm kiếm trong kênh này.",
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
@@ -143,6 +156,7 @@
 	},
 	"skipto": {
 		"description": "Bỏ qua tất cả bài hát và phát bài hát ở vị trí đã chọn",
+		"usage": "là số thứ tự bài hát trong hàng đợi.",
 		"usageReply": "Cách sử dụng: {prefix}{name} <số thứ tự bài hát trong hàng đợi>",
 		"errorNotQueue": "Không có bài hát nào trong hàng đợi.",
 		"errorNotValid": "Hiện chỉ có {length} bài hát trong hàng đợi!",
@@ -163,7 +177,8 @@
 		"currentVolume": "🔊 Âm lượng hiện tại là: **{volume}%**",
 		"errorNotNumber": "Vui lòng chỉ sử dụng giá trị là số để chỉnh âm lượng.",
 		"errorNotValid": "Vui lòng chỉ sử dụng số trong phạm vi từ 0 đến 100.",
-		"result": "Âm lượng được đặt thành: **{arg}%**"
+		"result": "Âm lượng được đặt thành: **{arg}%**",
+		"fieldsInput": "là giá trị âm lượng nhập vào. Ví dụ: `vol 50`."
 	},
 	"common": {
 		"on": "**bật**",
@@ -172,7 +187,10 @@
 		"disabled": "**vô hiệu hóa**",
 		"errorNotChannel": "Bạn cần tham gia một kênh thoại trước!",
 		"cooldownMessage": "Xin vui lòng chờ {time} giây trước khi sử dụng lại lệnh `{name}`.",
-		"errorCommand": "Có lỗi xảy ra khi đang cố gắng thực hiện yêu cầu của bạn, vui lòng thử lại sau ít phút."
+		"errorCommand": "Có lỗi xảy ra khi đang cố gắng thực hiện yêu cầu của bạn, vui lòng thử lại sau ít phút.",
+		"fieldsUse": "Cách sử dụng",
+		"fieldsShort": "Cách dùng nhanh",
+		"fieldsExample": "Ví dụ"
 	},
 	"uptime": {
 		"description": "Kiểm tra lần cập nhật gần nhất",
@@ -190,7 +208,9 @@
 		"value": "Mô tả trạng thái",
 		"errInput": "Tham số nhập vào không hợp lệ !",
 		"missingPermission": "Bạn không có quyền, chỉ chủ sở hữu bot được sử dụng lệnh.",
-		"result": "Đã đặt trạng thái cho bot thành công !"
+		"result": "Đã đặt trạng thái cho bot thành công !",
+		"fieldsType": "là kiểu trạng thái bot. Có nhiều kiểu như là `play`, `listen`, `watch`, `stream`,... Có thể dùng gọn là: `p`, `l`,....",
+		"fieldsMsg": "là nội dung ghi chú của trạng thái."
 	},
 	"favorite": {
 		"description": "Thêm các bài hát vào yêu thích",
@@ -201,7 +221,12 @@
 		"notInput": "Vui lòng nhập vị trí bài hát cần xóa !",
 		"resultRemove": "Đã xóa bài hát từ danh sách yêu thích !",
 		"notFavorite": "Bạn chưa thêm bài hát nào vào danh sách yêu thích !",
-		"notPlaying": "Không có bài hát nào đang phát !"
+		"notPlaying": "Không có bài hát nào đang phát !",
+		"fieldsList": "Xem danh sách bài hát yêu thích của bạn.",
+		"fieldsAdd": "Thêm một bài hát vào danh sách yêu thích.",
+		"fieldsRemove": "Xóa một bài hát khỏi danh sách yêu thích.",
+		"fieldsPlay": "Thêm danh sách yêu thích vào hàng đợi.",
+		"fieldsExample": "Bạn muốn thêm danh sách yêu thích vào hàng đợi thì dùng một trong các cách sau đều được:"
 	},
 	"Invite me to your server!": "Invite me to your server!",
 	"Invite": "Invite"

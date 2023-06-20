@@ -7,9 +7,18 @@ import { CommandType } from '../../interfaces/Command';
 export default {
     data: {
         name: 'volume',
-        sname: 'v',
+        sname: 'vol;v',
         type: CommandType.Music,
-        description: i18n.__("volume.description")
+        description: i18n.__("volume.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}volume <input>**` + '\n' +
+                    `• **${bot.prefix}vol <input>**` + '\n' +
+                    `• **${bot.prefix}v <input>**` + '\n' +
+                    `• **<type>** ` + i18n.__("volume.fieldsInput")
+            }
+        ]
     },
     execute(message: Message, volume: string) {
         if (!volume)

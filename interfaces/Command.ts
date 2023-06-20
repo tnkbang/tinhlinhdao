@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { APIEmbedField, SlashCommandBuilder } from "discord.js";
 
 export class CommandType {
   static Administrator = new String('admin')
@@ -12,6 +12,7 @@ export interface DataOptions {
   sname?: string;
   type?: string;
   description?: string;
+  fields?: APIEmbedField[]
 }
 
 export interface Command {

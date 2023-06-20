@@ -10,7 +10,15 @@ export default {
         name: 'move',
         sname: 'm',
         type: CommandType.Music,
-        description: i18n.__("move.description")
+        description: i18n.__("move.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}move <id>**` + '\n' +
+                    `• **${bot.prefix}m <id>**` + '\n' +
+                    `• **<id>** ` + i18n.__("move.usages")
+            }
+        ]
     },
     execute(message: Message, input: string) {
         if (!input)

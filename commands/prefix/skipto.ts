@@ -9,7 +9,15 @@ export default {
         name: 'skipto',
         sname: 'st',
         type: CommandType.Music,
-        description: i18n.__("skipto.description")
+        description: i18n.__("skipto.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}skipto <id>**` + '\n' +
+                    `• **${bot.prefix}st <id>**` + '\n' +
+                    `• **<id>** ` + i18n.__("skipto.usage")
+            }
+        ]
     },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("skipto.errorInput") }).catch(console.error)

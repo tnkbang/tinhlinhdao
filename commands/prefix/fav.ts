@@ -29,7 +29,30 @@ export default {
         name: 'favorite',
         sname: 'fav;f',
         type: CommandType.Music,
-        description: i18n.__("favorite.description")
+        description: i18n.__("favorite.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}favorite** : ` + i18n.__("favorite.fieldsList") + '\n' +
+                    `• **${bot.prefix}favorite add <url>** : ` + i18n.__("favorite.fieldsAdd") + '\n' +
+                    `• **${bot.prefix}favorite remove <id>** : ` + i18n.__("favorite.fieldsRemove") + '\n' +
+                    `• **${bot.prefix}favorite play** : ` + i18n.__("favorite.fieldsPlay") + '\n'
+            }, {
+                name: i18n.__("common.fieldsShort"),
+                value: '• favorite = fav = f\n' +
+                    '• add = a\n' +
+                    '• remove = r\n' +
+                    '• play = p'
+            }, {
+                name: i18n.__("common.fieldsExample"),
+                value: i18n.__("favorite.fieldsExample") + '\n' +
+                    `• **${bot.prefix}favorite play**\n` +
+                    `• **${bot.prefix}favorite p**\n` +
+                    `• **${bot.prefix}fav play**\n` +
+                    `• **${bot.prefix}fav p**\n` +
+                    `• **${bot.prefix}f p**\n`
+            }
+        ]
     },
     async execute(message: Message, input: string) {
         const fav = new Favorite();

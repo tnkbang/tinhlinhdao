@@ -9,7 +9,14 @@ export default {
         name: 'loop',
         sname: 'lp',
         type: CommandType.Music,
-        description: i18n.__("loop.description")
+        description: i18n.__("loop.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}loop**` + '\n' +
+                    `• **${bot.prefix}lp**`
+            }
+        ]
     },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);

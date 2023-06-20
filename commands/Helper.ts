@@ -14,26 +14,46 @@ import { Song } from "../structs/Song";
 import { randomColor } from "../utils/color";
 
 function setHelp(type: string) {
-    const commands = getCommandOfType(type)
-
     let helpEmbed = new EmbedBuilder()
         .setTitle(i18n.__mf("help.embedTitle", { botname: bot.client.user!.username }))
         .setDescription(i18n.__mf("help.embedDescription", { title: type }))
         .setColor(randomColor());
 
-    commands.forEach((cmd) => {
-        helpEmbed.addFields({
-            name: `**${cmd.name}**`,
-            value: `${cmd.description}`,
-            inline: true
-        });
-    });
+    //check not input
+    if (!type) {
+        const cmdHelp = bot.prefixCommandsMap.get('help')
 
-    if (commands.length == 0)
-        helpEmbed.setDescription(i18n.__mf("help.notValue", { title: type }))
+        helpEmbed.setDescription(cmdHelp?.data?.description || '')
+        helpEmbed.addFields(cmdHelp?.data?.fields || [])
+        helpEmbed.setTimestamp();
+
+        return helpEmbed
+    }
+
+    //with command type
+    const commands = getCommandOfType(type)
+    if (commands.length > 0) {
+        commands.forEach((cmd) => {
+            helpEmbed.addFields({
+                name: `**${cmd.name}**`,
+                value: `${cmd.description}`,
+                inline: true
+            });
+        });
+
+        helpEmbed.setTimestamp();
+        return helpEmbed
+    }
+
+    //with prefix command
+    const cmd = bot.prefixCommandsMap.get(type)
+    if (cmd) {
+        helpEmbed.setDescription(cmd?.data?.description || '')
+        helpEmbed.addFields(bot.prefixCommandsMap.get(type)?.data?.fields || [])
+    }
+    else helpEmbed.setDescription(i18n.__mf("help.notValue", { title: type }))
 
     helpEmbed.setTimestamp();
-
     return helpEmbed
 }
 

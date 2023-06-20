@@ -11,7 +11,14 @@ export default {
         name: 'lyrics',
         sname: 'ly',
         type: CommandType.Music,
-        description: i18n.__("lyrics.description")
+        description: i18n.__("lyrics.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}lyrics**` + '\n' +
+                    `• **${bot.prefix}ly**`
+            }
+        ]
     },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);

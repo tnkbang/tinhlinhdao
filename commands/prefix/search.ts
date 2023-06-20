@@ -8,13 +8,22 @@ import { i18n } from "../../utils/i18n";
 import youtube, { Video } from 'youtube-sr';
 import play from "./play";
 import { CommandType } from "../../interfaces/Command";
+import { bot } from './../../index';
 
 export default {
     data: {
         name: 'search',
         sname: 's',
         type: CommandType.Music,
-        description: i18n.__("search.description")
+        description: i18n.__("search.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}search <url>**` + '\n' +
+                    `• **${bot.prefix}s <url>**` + '\n' +
+                    i18n.__("search.usage")
+            }
+        ]
     },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("search.errorInput") }).catch(console.error)

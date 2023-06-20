@@ -16,7 +16,15 @@ export default {
         name: 'play',
         sname: 'p',
         type: CommandType.Music,
-        description: i18n.__("play.description")
+        description: i18n.__("play.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}play <url>**` + '\n' +
+                    `• **${bot.prefix}p <url>**` + '\n' +
+                    i18n.__("play.usages")
+            }
+        ]
     },
     async execute(message: Message, input: string, isSearch: boolean = false) {
         let argSongName = input;

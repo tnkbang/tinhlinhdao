@@ -8,8 +8,18 @@ import { CommandType } from '../../interfaces/Command';
 export default {
     data: {
         name: 'status',
+        sname: 'stt',
         type: CommandType.Administrator,
-        description: i18n.__("status.description")
+        description: i18n.__("status.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}status <type> <msg>**` + '\n' +
+                    `• **${bot.prefix}stt <type> <msg>**` + '\n' +
+                    `• **<type>** ` + i18n.__("status.fieldsType") + '\n' +
+                    `• **<type>** ` + i18n.__("status.fieldsMsg")
+            }
+        ]
     },
     execute(message: Message, input: string) {
         const ownerID = config.OWNER

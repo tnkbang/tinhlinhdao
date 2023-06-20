@@ -17,7 +17,15 @@ export default {
         name: 'playlist',
         sname: 'pl',
         type: CommandType.Music,
-        description: i18n.__("playlist.description")
+        description: i18n.__("playlist.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}playlist <url playlist>**` + '\n' +
+                    `• **${bot.prefix}pl <url playlist>**` + '\n' +
+                    i18n.__("playlist.usages")
+            }
+        ]
     },
     async execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("playlist.errorInput") }).catch(console.error)

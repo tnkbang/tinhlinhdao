@@ -8,7 +8,13 @@ export default {
     data: {
         name: 'skip',
         type: CommandType.Music,
-        description: i18n.__("skip.description")
+        description: i18n.__("skip.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `**${bot.prefix}skip**`
+            }
+        ]
     },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);

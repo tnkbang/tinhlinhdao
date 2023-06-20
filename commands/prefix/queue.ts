@@ -14,7 +14,14 @@ export default {
         name: 'queue',
         sname: 'q',
         type: CommandType.Music,
-        description: i18n.__("queue.description")
+        description: i18n.__("queue.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}queue**` + '\n' +
+                    `• **${bot.prefix}q**`
+            }
+        ]
     },
     async execute(message: Message) {
         const queue = bot.queues.get(message.guild!.id);

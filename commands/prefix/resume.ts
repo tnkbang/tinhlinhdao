@@ -8,7 +8,13 @@ export default {
     data: {
         name: 'resume',
         type: CommandType.Music,
-        description: i18n.__("resume.description")
+        description: i18n.__("resume.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `**${bot.prefix}resume**`
+            }
+        ]
     },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);

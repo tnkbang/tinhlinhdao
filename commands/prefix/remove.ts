@@ -12,7 +12,15 @@ export default {
         name: 'remove',
         sname: 'r',
         type: CommandType.Music,
-        description: i18n.__("remove.description")
+        description: i18n.__("remove.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}remove <id>**` + '\n' +
+                    `• **${bot.prefix}r <id>**` + '\n' +
+                    `• **<id>** ` + i18n.__("remove.usages")
+            }
+        ]
     },
     execute(message: Message, input: string) {
         if (!input) return message.reply({ content: i18n.__("remove.errorInput") }).catch(console.error)

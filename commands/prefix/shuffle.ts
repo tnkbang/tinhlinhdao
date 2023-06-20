@@ -9,7 +9,14 @@ export default {
         name: 'shuffle',
         sname: 'sf',
         type: CommandType.Music,
-        description: i18n.__("shuffle.description")
+        description: i18n.__("shuffle.description"),
+        fields: [
+            {
+                name: i18n.__("common.fieldsUse"),
+                value: `• **${bot.prefix}shuffle**` + '\n' +
+                    `• **${bot.prefix}sf**`
+            }
+        ]
     },
     execute(message: Message, input: string, author: GuildMember | undefined) {
         const queue = bot.queues.get(message.guild!.id);
