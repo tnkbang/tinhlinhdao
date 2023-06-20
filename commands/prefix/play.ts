@@ -22,7 +22,7 @@ export default {
                 name: i18n.__("common.fieldsUse"),
                 value: `• **${bot.prefix}play <url>**` + '\n' +
                     `• **${bot.prefix}p <url>**` + '\n' +
-                    i18n.__("play.usages")
+                    i18n.__("play.usage")
             }
         ]
     },

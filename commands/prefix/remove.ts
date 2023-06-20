@@ -18,7 +18,7 @@ export default {
                 name: i18n.__("common.fieldsUse"),
                 value: `• **${bot.prefix}remove <id>**` + '\n' +
                     `• **${bot.prefix}r <id>**` + '\n' +
-                    `• **<id>** ` + i18n.__("remove.usages")
+                    `• **<id>** ` + i18n.__("remove.usage")
             }
         ]
     },

@@ -89,8 +89,7 @@
 		"leaveChannel": "Đã rời khỏi kênh thoại...",
 		"songNotFound": "Không thể tìm thấy đoạn âm thanh",
 		"songAccessErr": "Video bị giới hạn độ tuổi, ở chế độ riêng tư hoặc không khả dụng!",
-		"errorNoResults": "Không tìm thấy bài hát",
-		"usages": "play.usages"
+		"errorNoResults": "Không tìm thấy bài hát"
 	},
 	"playlist": {
 		"description": "Phát danh sách nhạc từ link YouTube",
@@ -124,8 +123,7 @@
 		"errorNotQueue": "Không có hàng đợi nào đang hoạt động.",
 		"usage": "là số thứ tự bài hát trong hàng đợi.",
 		"usageReply": "Cách sử dụng: {prefix}remove <số thứ tự bài hát trong hàng đợi>",
-		"result": "<@{author}> ❌ đã xóa **{title}** khỏi hàng đợi.",
-		"usages": "remove.usages"
+		"result": "<@{author}> ❌ đã xóa **{title}** khỏi hàng đợi."
 	},
 	"resume": {
 		"description": "Tiếp tục phát bài hát hiện đang bị tạm dừng",
