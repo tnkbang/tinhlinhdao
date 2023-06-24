@@ -5,35 +5,29 @@ const fs = require('fs');
 const filePath = path.join(__dirname, "..", "data", "favorite.json")
 
 export interface Fav {
-    user: users[]
-}
-
-interface users {
-    user_id: string;
+    uid: string;
     musics: SongData[]
 }
 export class Favorite {
-    public value: Fav;
+    public value: Fav[];
     public get() {
         try {
             const jsonString = fs.readFileSync(filePath);
             this.value = JSON.parse(jsonString);
         } catch (error) {
-            this.value = {
-                user: []
-            };
+            this.value = []
         }
     }
 
-    public isUser(message: Message, users: users[]) {
-        return users.some(value => {
-            if (value.user_id == message.author.id) return true
+    public isUser(message: Message, fav: Fav[]) {
+        return fav.some(value => {
+            if (value.uid == message.author.id) return true
         })
     }
 
     public notMusic(message: Message, fav: Favorite) {
-        return fav.value.user.some(value => {
-            if (value.user_id == message.author.id) {
+        return fav.value.some(value => {
+            if (value.uid == message.author.id) {
                 if (value.musics.length == 0) return true
             }
         })
@@ -46,9 +40,9 @@ export class Favorite {
     }
 
     public set(message: Message, song: SongData) {
-        if (this.isUser(message, this.value.user)) {
-            this.value.user.some(value => {
-                if (value.user_id == message.author.id) {
+        if (this.isUser(message, this.value)) {
+            this.value.some(value => {
+                if (value.uid == message.author.id) {
                     if (!this.isFavorite(value.musics, song.url)) {
                         value.musics.push(song)
                     }
@@ -58,13 +52,13 @@ export class Favorite {
             })
         }
         else {
-            const user: users = {
-                user_id: message.author.id,
+            const fav: Fav = {
+                uid: message.author.id,
                 musics: []
             }
-            user.musics.push(song)
+            fav.musics.push(song)
 
-            this.value.user.push(user)
+            this.value.push(fav)
         }
     }
 

@@ -83,7 +83,7 @@ export default {
 }
 
 function read(message: Message, fav: Favorite) {
-    if (!fav.isUser(message, fav.value.user))
+    if (!fav.isUser(message, fav.value))
         return message
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
@@ -96,8 +96,8 @@ function read(message: Message, fav: Favorite) {
         .setColor(randomColor())
         .setTimestamp();
 
-    fav.value.user.some(value => {
-        if (value.user_id == message.author.id) {
+    fav.value.some(value => {
+        if (value.uid == message.author.id) {
             favEmbed.setDescription(value.musics.map((value: SongData, index: number) => `${index + 1}. ${value.title}`).join("\n"))
             return true
         }
@@ -108,8 +108,8 @@ function read(message: Message, fav: Favorite) {
 
 function play(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQueue | MusicQueuePrefix | undefined, channel: VoiceBasedChannel) {
     let lstFav: Song[] = []
-    fav.value.user.some(value => {
-        if (value.user_id == message.author.id) {
+    fav.value.some(value => {
+        if (value.uid == message.author.id) {
             value.musics.map((value: SongData) => lstFav.push(new Song(value)))
             return true
         }
@@ -177,7 +177,7 @@ async function add(fav: Favorite, arrMsg: string[], message: Message, queue: Mus
 }
 
 function remove(fav: Favorite, arrMsg: string[], message: Message) {
-    if (!fav.isUser(message, fav.value.user))
+    if (!fav.isUser(message, fav.value))
         return message
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
@@ -191,8 +191,8 @@ function remove(fav: Favorite, arrMsg: string[], message: Message) {
     })
     if (inputValid) return message.reply({ content: i18n.__("favorite.errInput") }).catch(console.error);
 
-    fav.value.user.some(value => {
-        if (value.user_id == message.author.id) {
+    fav.value.some(value => {
+        if (value.uid == message.author.id) {
             arrMsg.forEach(i => {
                 const number = Number.parseInt(i)
                 if (value.musics[number - 1]) arrRemove.push(value.musics[number - 1])
