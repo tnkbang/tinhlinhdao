@@ -191,8 +191,8 @@
 		"fieldsExample": "Ví dụ"
 	},
 	"uptime": {
-		"description": "Kiểm tra lần cập nhật gần nhất",
-		"result": "Cập nhật: {time}"
+		"description": "Kiểm tra thời gian hoạt động của bot",
+		"result": "Hoạt động: {time}"
 	},
 	"sleep": {
 		"description": "Tính chu kỳ ngủ",
