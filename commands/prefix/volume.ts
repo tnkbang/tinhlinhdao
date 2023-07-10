@@ -16,7 +16,7 @@ export default {
                 value: `• **${bot.prefix}volume <input>**` + '\n' +
                     `• **${bot.prefix}vol <input>**` + '\n' +
                     `• **${bot.prefix}v <input>**` + '\n' +
-                    `• **<type>** ` + i18n.__("volume.fieldsInput")
+                    `• **<input>** ` + i18n.__("volume.fieldsInput")
             }
         ]
     },
