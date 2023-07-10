@@ -36,6 +36,9 @@ export default {
             embeds: [embeds[currentPage]]
         });
 
+        //if page = 1 then not set collection
+        if (embeds.length == 1) return;
+
         try {
             await editMsg.react("⬅️");
             await editMsg.react("⏹");

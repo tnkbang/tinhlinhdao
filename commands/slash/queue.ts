@@ -31,6 +31,9 @@ export default {
 
         const queueEmbed = await interaction.fetchReply();
 
+        //if page = 1 then not set collection
+        if (embeds.length == 1) return;
+
         try {
             await queueEmbed.react("⬅️");
             await queueEmbed.react("⏹");
