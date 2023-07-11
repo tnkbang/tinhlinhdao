@@ -35,6 +35,9 @@ export class Bot {
     this.client.login(config.TOKEN);
 
     this.client.on("ready", () => {
+      //when run in repl
+      // require("http").createServer((_, res) => res.end("Alive!")).listen(8080)
+
       console.log(`${this.client.user!.username} ready!`);
 
       client.user?.setActivity({
