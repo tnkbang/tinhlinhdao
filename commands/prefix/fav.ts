@@ -13,16 +13,18 @@ import { randomColor } from "../../utils/color";
 import { Song, SongData } from "../../structs/Song";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from "@discordjs/voice";
 
-const favKey = ['add', 'a', 'play', 'p', 'remove', 'r']
-const favOption = [add, add, play, play, remove, remove]
-const favCommandsMap = new Collection<string, CommandPrefix>()
+//when first call then create collection
+if (bot.favCommandsMap.size == 0) {
+    const favKey = ['add', 'a', 'play', 'p', 'remove', 'r']
+    const favOption = [add, add, play, play, remove, remove]
 
-favOption.forEach((value, index) => {
-    const cmd: CommandPrefix = {
-        execute: value
-    }
-    favCommandsMap.set(favKey[index], cmd)
-})
+    favOption.forEach((value, index) => {
+        const cmd: CommandPrefix = {
+            execute: value
+        }
+        bot.favCommandsMap.set(favKey[index], cmd)
+    })
+}
 
 export default {
     data: {
@@ -77,8 +79,8 @@ export default {
 
         const arrMsg = input.split(' ')
 
-        if (!favCommandsMap.get(arrMsg[0])) return
-        return await favCommandsMap.get(arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)
+        if (!bot.favCommandsMap.get(arrMsg[0])) return
+        return await bot.favCommandsMap.get(arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)
     }
 }
 
