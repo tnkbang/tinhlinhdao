@@ -12,6 +12,7 @@ import { bot } from '../index';
 import { i18n } from "../utils/i18n";
 import { Song } from "../structs/Song";
 import { randomColor } from "../utils/color";
+import { config } from "../utils/config";
 
 function setHelp(type: string) {
     let helpEmbed = new EmbedBuilder()
@@ -96,8 +97,8 @@ function setInvite() {
 }
 
 function getTime(date: Date) {
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
+    const hours = date.getUTCHours()
+    const minutes = date.getUTCMinutes()
     const ampm = hours >= 12 ? "PM" : "AM"
 
     const hh = hours.toString().length < 2 ? "0" + hours.toString() : hours
@@ -121,18 +122,10 @@ function getStringHours(cycle: number) {
 
 function getLocalDateTime() {
     const date = new Date();
-    //add date UTC+7 in locate vi_VN
-    date.setTime(date.getTime() + 7 * 60 * 60 * 1000);
+    date.setTime(date.getTime() + config.UTC * 60 * 60 * 1000);
+
     return date;
 }
-
-// run in local
-// function getLocalDateTime() {
-//     const strTime = new Date().toLocaleString('en-US', {
-//         timeZone: 'Asia/Ho_Chi_Minh'
-//     })
-//     return new Date(strTime)
-// }
 
 function getContentSleeping(dateTime: Date) {
     let strResult = ""
