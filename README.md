@@ -38,6 +38,7 @@ Change your `TOKEN`, owner id to `OWNER` and other values....
   "PREFIX": "::",
   "PRUNING": false,
   "LOCALE": "vi",
+  "UTC": 7,
   "STAY_TIME": 30,
   "DEFAULT_VOLUME": 100
 }
