@@ -26,7 +26,7 @@ After installation finishes follow configuration instructions then run `npm run 
 
 Copy or Rename `config.json.txt` to `config.json` and fill out the values:
 
-Change your `TOKEN`, owner id to `OWNER` and other values....
+Change your `TOKEN`, owner id for `OWNER` and other values....
 
 ⚠️ **Note: Never commit or share your token or api keys publicly** ⚠️
 
