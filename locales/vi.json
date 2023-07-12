@@ -198,7 +198,9 @@
 		"description": "Tính chu kỳ ngủ",
 		"strInfo": "Bây giờ là: **{time}**. Nếu bạn ngủ ngay bây giờ bạn nên thức dậy vào:",
 		"strContent": "⏰ **{time}** cho {cycle} chu kỳ - ngủ {sleeping}",
-		"result": "Lệnh đang cập nhật\nVui lòng sử dụng lại sau!"
+		"result": "Lệnh đang cập nhật\nVui lòng sử dụng lại sau!",
+		"even": " tiếng.",
+		"odd": " tiếng rưỡi."
 	},
 	"status": {
 		"description": "Đặt trạng thái cho bot",
@@ -226,6 +228,6 @@
 		"fieldsPlay": "Thêm danh sách yêu thích vào hàng đợi.",
 		"fieldsExample": "Bạn muốn thêm danh sách yêu thích vào hàng đợi thì dùng một trong các cách sau đều được:"
 	},
-	"Invite me to your server!": "Invite me to your server!",
-	"Invite": "Invite"
+	"Invite me to your server!": "Mời tôi vào máy chủ của bạn!",
+	"Invite": "Mời"
 }

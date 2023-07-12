@@ -114,9 +114,9 @@ function addMinutes(date: Date, minutes: number) {
 
 function getStringHours(cycle: number) {
     switch (cycle) {
-        case 3: return "bốn tiếng rưỡi."
-        case 4: return "sáu tiếng."
-        case 5: return "bảy tiếng rưỡi."
+        case 3: return (cycle + 1) + i18n.__("sleep.odd");
+        case 4: return (cycle + 1) + i18n.__("sleep.even");
+        case 5: return (cycle + 1) + i18n.__("sleep.odd");
     }
 }
 
