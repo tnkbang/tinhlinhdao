@@ -98,27 +98,19 @@ function read(message: Message, fav: Favorite) {
         .setColor(randomColor())
         .setTimestamp();
 
-    fav.value.some(value => {
-        if (value.uid == message.author.id) {
-            favEmbed.setDescription(value.musics.map((value: SongData, index: number) => `${index + 1}. ${value.title}`).join("\n"))
-            return true
-        }
-    })
+    favEmbed.setDescription(fav.value[message.author.id].map((value: SongData, index: number) => `${index + 1}. ${value.title}`).join("\n"))
 
     return message.reply({ embeds: [favEmbed] }).catch(console.error);
 }
 
 function play(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQueue | MusicQueuePrefix | undefined, channel: VoiceBasedChannel) {
-    let lstFav: Song[] = []
-    fav.value.some(value => {
-        if (value.uid == message.author.id) {
-            value.musics.map((value: SongData) => lstFav.push(new Song(value)))
-            return true
-        }
-    })
 
+    //not fav then exception
     let notMusic = fav.notMusic(message, fav)
     if (notMusic) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
+
+    let lstFav: Song[] = []
+    fav.value[message.author.id].map((value: SongData) => lstFav.push(new Song(value)))
 
     if (queue) {
         queue.songs.push(...lstFav)
@@ -188,22 +180,19 @@ function remove(fav: Favorite, arrMsg: string[], message: Message) {
     arrMsg = arrMsg.slice(1)
     if (arrMsg.length == 0) return message.reply({ content: i18n.__("favorite.notInput") }).catch(console.error);
 
+    //input not number, return
     const inputValid = arrMsg.some(value => {
         if (!Number.parseInt(value)) return true
     })
     if (inputValid) return message.reply({ content: i18n.__("favorite.errInput") }).catch(console.error);
 
-    fav.value.some(value => {
-        if (value.uid == message.author.id) {
-            arrMsg.forEach(i => {
-                const number = Number.parseInt(i)
-                if (value.musics[number - 1]) arrRemove.push(value.musics[number - 1])
-            })
-
-            value.musics = value.musics.filter(ar => !arrRemove.find(rm => (rm.url === ar.url)))
-            return true
-        }
+    //setup remove
+    const uid = message.author.id;
+    arrMsg.forEach(i => {
+        const number = Number.parseInt(i)
+        if (fav.value[uid][number - 1]) arrRemove.push(fav.value[uid][number - 1])
     })
+    fav.value[uid] = fav.value[uid].filter(ar => !arrRemove.find(rm => (rm.url === ar.url)))
 
     fav.save()
     return (message.channel as TextChannel)

@@ -1,36 +1,38 @@
 import { Message } from "discord.js";
 import path from "path";
 import { SongData } from './Song';
+import { config } from "../utils/config";
 const fs = require('fs');
 const filePath = path.join(__dirname, "..", "data", "favorite.json")
 
 export interface Fav {
-    uid: string;
-    musics: SongData[]
+    [x: string]: SongData[]
 }
 export class Favorite {
-    public value: Fav[];
+    public value: Fav;
     public get() {
         try {
             const jsonString = fs.readFileSync(filePath);
             this.value = JSON.parse(jsonString);
         } catch (error) {
-            this.value = []
+            //set first fav
+            const ownID = config.OWNER
+            const firstFav: Fav = {
+                [ownID]: []
+            }
+            this.value = firstFav
         }
     }
 
-    public isUser(message: Message, fav: Fav[]) {
-        return fav.some(value => {
-            if (value.uid == message.author.id) return true
-        })
+    public isUser(message: Message, fav: Fav) {
+        const check = Object.prototype.hasOwnProperty.call(fav, message.author.id);
+        return check
     }
 
     public notMusic(message: Message, fav: Favorite) {
-        return fav.value.some(value => {
-            if (value.uid == message.author.id) {
-                if (value.musics.length == 0) return true
-            }
-        })
+        if (!this.isUser(message, this.value)) return true
+        if (fav.value[message.author.id] && fav.value[message.author.id].length == 0) return true
+        return false
     }
 
     private isFavorite(songs: SongData[], url: string) {
@@ -40,25 +42,18 @@ export class Favorite {
     }
 
     public set(message: Message, song: SongData) {
+        //exist user
         if (this.isUser(message, this.value)) {
-            this.value.some(value => {
-                if (value.uid == message.author.id) {
-                    if (!this.isFavorite(value.musics, song.url)) {
-                        value.musics.push(song)
-                    }
+            const userFav = this.value[message.author.id];
 
-                    return true
-                }
-            })
+            //add if not fav
+            if (!this.isFavorite(userFav, song.url)) {
+                this.value[message.author.id].push(song)
+            }
         }
         else {
-            const fav: Fav = {
-                uid: message.author.id,
-                musics: []
-            }
-            fav.musics.push(song)
-
-            this.value.push(fav)
+            this.value[message.author.id] = []
+            this.value[message.author.id].push(song)
         }
     }
 
