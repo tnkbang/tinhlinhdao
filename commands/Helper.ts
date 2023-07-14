@@ -12,7 +12,7 @@ import { bot } from '../index';
 import { i18n } from "../utils/i18n";
 import { Song } from "../structs/Song";
 import { randomColor } from "../utils/color";
-import { config } from "../utils/config";
+import { TimeZone } from "../structs/TimeZone";
 
 function setHelp(type: string) {
     let helpEmbed = new EmbedBuilder()
@@ -120,9 +120,9 @@ function getStringHours(cycle: number) {
     }
 }
 
-function getLocalDateTime() {
+function getLocalDateTime(userZone: number) {
     const date = new Date();
-    date.setTime(date.getTime() + config.UTC * 60 * 60 * 1000);
+    date.setTime(date.getTime() + userZone * 60 * 60 * 1000);
 
     return date;
 }
@@ -144,7 +144,14 @@ function getContentSleeping(dateTime: Date) {
 }
 
 function setSleep(interaction: ChatInputCommandInteraction | Message) {
-    const dateTime = getLocalDateTime()
+    const zones = new TimeZone()
+    zones.get()
+
+    let userZone;
+    if (interaction instanceof Message) userZone = zones.mGetUserZone(interaction, zones)
+    else userZone = zones.iGetUserZone(interaction, zones)
+
+    const dateTime = getLocalDateTime(userZone)
 
     let title = i18n.__mf("sleep.strInfo", { time: getTime(dateTime) })
     let strResult = title
