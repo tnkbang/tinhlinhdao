@@ -23,28 +23,20 @@ export class TimeZone {
         }
     }
 
-    //check user with message
-    public mIsUser(message: Message, zone: UserZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone, message.author.id);
-        return check
-    }
-
-    //check user with interaction
-    public iIsUser(interaction: Interaction, zone: UserZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone, interaction.user.id);
-        return check
-    }
-
     //get user zone with message
     public mGetUserZone(message: Message, zone: TimeZone) {
-        if (!this.mIsUser(message, this.value)) return config.UTC;
-        return zone.value[message.author.id];
+        const check = Object.prototype.hasOwnProperty.call(zone, message.author.id);
+        if (check) return zone.value[message.author.id];
+
+        return config.UTC;
     }
 
     //get user zone with interaction
     public iGetUserZone(interaction: Interaction, zone: TimeZone) {
-        if (!this.iIsUser(interaction, this.value)) return config.UTC;
-        return zone.value[interaction.user.id];
+        const check = Object.prototype.hasOwnProperty.call(zone, interaction.user.id);
+        if (check) return zone.value[interaction.user.id];
+
+        return config.UTC;
     }
 
     //set time zone with message
