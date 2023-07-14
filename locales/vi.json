@@ -1,4 +1,6 @@
 {
+	"3": "3",
+	"5": "5",
 	"clip": {
 		"description": "Phát một đoạn âm thanh",
 		"usagesReply": "Cách sử dụng: {prefix}clip <tên đoạn âm thanh>",
@@ -229,5 +231,13 @@
 		"fieldsExample": "Bạn muốn thêm danh sách yêu thích vào hàng đợi thì dùng một trong các cách sau đều được:"
 	},
 	"Invite me to your server!": "Mời tôi vào máy chủ của bạn!",
-	"Invite": "Mời"
+	"Invite": "Mời",
+	"timezone": {
+		"description": "Thông tin múi giờ của bạn được lưu trong dữ liệu của bot.",
+		"fieldsInfo": "Hiển thị múi giờ hiện tại của bạn.",
+		"fieldsExample": "Bạn muốn thực hiện thay đổi múi giờ của mình thành `UTC +7` thì có thể thực hiện:",
+		"fieldsSet": "Thay đổi múi giờ của bạn.",
+		"replyZone": "Múi giờ của bạn hiện tại là: UTC {zone}.",
+		"replySave": "Múi giờ của bạn đã được đặt là: UTC {zone}."
+	}
 }
