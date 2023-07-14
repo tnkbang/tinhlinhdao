@@ -25,7 +25,7 @@ export class TimeZone {
 
     //get user zone with message
     public mGetUserZone(message: Message, zone: TimeZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone, message.author.id);
+        const check = Object.prototype.hasOwnProperty.call(zone.value, message.author.id);
         if (check) return zone.value[message.author.id];
 
         return config.UTC;
@@ -33,7 +33,7 @@ export class TimeZone {
 
     //get user zone with interaction
     public iGetUserZone(interaction: Interaction, zone: TimeZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone, interaction.user.id);
+        const check = Object.prototype.hasOwnProperty.call(zone.value, interaction.user.id);
         if (check) return zone.value[interaction.user.id];
 
         return config.UTC;

@@ -234,6 +234,7 @@
 	"Invite": "Mời",
 	"timezone": {
 		"description": "Thông tin múi giờ của bạn được lưu trong dữ liệu của bot.",
+		"input": "Nhập múi giờ của bạn.",
 		"fieldsInfo": "Hiển thị múi giờ hiện tại của bạn.",
 		"fieldsExample": "Bạn muốn thực hiện thay đổi múi giờ của mình thành `UTC +7` thì có thể thực hiện:",
 		"fieldsSet": "Thay đổi múi giờ của bạn.",
