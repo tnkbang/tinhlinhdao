@@ -148,8 +148,8 @@ function setSleep(interaction: ChatInputCommandInteraction | Message) {
     zones.get()
 
     let userZone;
-    if (interaction instanceof Message) userZone = zones.mGetUserZone(interaction, zones)
-    else userZone = zones.iGetUserZone(interaction, zones)
+    if (interaction instanceof Message) userZone = zones.getUserZone(interaction.author.id, zones)
+    else userZone = zones.getUserZone(interaction.user.id, zones)
 
     const dateTime = getLocalDateTime(userZone)
 

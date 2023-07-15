@@ -11,13 +11,13 @@ export default {
         const input = interaction.options.getInteger("utc");
         const zones = new TimeZone();
         zones.get();
-        let userZone = zones.iGetUserZone(interaction, zones)
+        let userZone = zones.getUserZone(interaction.user.id, zones)
 
         if (!input) return interaction.reply(i18n.__mf("timezone.replyZone",
             { zone: (userZone > 0 ? '+' : '') + userZone }))
 
         userZone = input
-        zones.iSet(interaction, userZone)
+        zones.set(interaction.user.id, userZone)
         zones.save()
 
         return interaction.reply(i18n.__mf("timezone.replySave",

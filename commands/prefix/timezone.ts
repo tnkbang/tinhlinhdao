@@ -30,13 +30,13 @@ export default {
     async execute(message: Message, input: string) {
         const zones = new TimeZone();
         zones.get();
-        let userZone = zones.mGetUserZone(message, zones)
+        let userZone = zones.getUserZone(message.author.id, zones)
 
         if (!input) return message.reply(i18n.__mf("timezone.replyZone",
             { zone: (userZone > 0 ? '+' : '') + userZone }))
 
         userZone = Number.parseInt(input)
-        zones.mSet(message, userZone)
+        zones.set(message.author.id, userZone)
         zones.save()
 
         return message.reply(i18n.__mf("timezone.replySave",

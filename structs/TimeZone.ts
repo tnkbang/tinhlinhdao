@@ -1,4 +1,3 @@
-import { Interaction, Message } from "discord.js";
 import path from "path";
 import { config } from "../utils/config";
 const fs = require('fs');
@@ -23,30 +22,17 @@ export class TimeZone {
         }
     }
 
-    //get user zone with message
-    public mGetUserZone(message: Message, zone: TimeZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone.value, message.author.id);
-        if (check) return zone.value[message.author.id];
+    //get user time zone
+    public getUserZone(uid: string, zone: TimeZone) {
+        const check = Object.prototype.hasOwnProperty.call(zone.value, uid);
+        if (check) return zone.value[uid];
 
         return config.UTC;
     }
 
-    //get user zone with interaction
-    public iGetUserZone(interaction: Interaction, zone: TimeZone) {
-        const check = Object.prototype.hasOwnProperty.call(zone.value, interaction.user.id);
-        if (check) return zone.value[interaction.user.id];
-
-        return config.UTC;
-    }
-
-    //set time zone with message
-    public mSet(message: Message, input: number) {
-        this.value[message.author.id] = input
-    }
-
-    //set time zone with interaction
-    public iSet(interaction: Interaction, input: number) {
-        this.value[interaction.user.id] = input
+    //set time zone
+    public set(uid: string, input: number) {
+        this.value[uid] = input
     }
 
     public save() {
