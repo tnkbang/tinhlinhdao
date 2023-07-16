@@ -27,7 +27,7 @@ export class Bot {
   public slashCommands = new Array<ApplicationCommandDataResolvable>();
   public slashCommandsMap = new Collection<string, Command>();
   public prefixCommandsMap = new Collection<string, CommandPrefix>();
-  public favCommandsMap = new Collection<string, CommandPrefix>();
+  public favCommandsMap = new Collection<string, Command | CommandPrefix>();
   public cooldowns = new Collection<string, Collection<Snowflake, number>>();
   public queues = new Collection<Snowflake, MusicQueue | MusicQueuePrefix>();
 

@@ -12,19 +12,6 @@ import { randomColor } from "../../utils/color";
 import { Song, SongData } from "../../structs/Song";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from "@discordjs/voice";
 
-//when first call then create collection
-if (bot.favCommandsMap.size == 0) {
-    const favKey = ['add', 'a', 'play', 'p', 'remove', 'r']
-    const favOption = [add, add, play, play, remove, remove]
-
-    favOption.forEach((value, index) => {
-        const cmd: CommandPrefix = {
-            execute: value
-        }
-        bot.favCommandsMap.set(favKey[index], cmd)
-    })
-}
-
 export default {
     data: {
         name: 'favorite',
@@ -56,6 +43,7 @@ export default {
         ]
     },
     async execute(message: Message, input: string) {
+        createCollectionCommand()
         const fav = new Favorite();
         fav.get();
 
@@ -78,8 +66,24 @@ export default {
 
         const arrMsg = input.split(' ')
 
-        if (!bot.favCommandsMap.get(arrMsg[0])) return
-        return await bot.favCommandsMap.get(arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)
+        if (!bot.favCommandsMap.get(bot.prefix + arrMsg[0])) return
+        return await bot.favCommandsMap.get(bot.prefix + arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)
+    }
+}
+
+//when first call then create collection
+function createCollectionCommand() {
+    const prefix = bot.prefix;
+    if (!bot.favCommandsMap.get(prefix + 'add')) {
+        const favKey = [prefix + 'add', prefix + 'a', prefix + 'play', prefix + 'p', prefix + 'remove', prefix + 'r']
+        const favOption = [add, add, play, play, remove, remove]
+
+        favOption.forEach((value, index) => {
+            const cmd: CommandPrefix = {
+                execute: value
+            }
+            bot.favCommandsMap.set(favKey[index], cmd)
+        })
     }
 }
 

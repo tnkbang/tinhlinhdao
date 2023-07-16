@@ -217,6 +217,8 @@
 	"favorite": {
 		"description": "Thêm các bài hát vào yêu thích",
 		"title": "Danh sách bài hát yêu thích của bạn !",
+		"inputAction": "Nhập hành động: add, play hoặc remove.",
+		"inputArgs": "Url khi thêm hoặc vị trí bài hát khi xóa.",
 		"resultPlay": "Đã thêm các bài hát từ danh sách yêu thích vào hàng đợi !",
 		"resultAdd": "Đã thêm vào danh sách yêu thích !",
 		"errInput": "Tham số nhập vào không hợp lệ !",
