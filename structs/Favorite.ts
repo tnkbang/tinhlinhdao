@@ -1,4 +1,3 @@
-import { Message } from "discord.js";
 import path from "path";
 import { SongData } from './Song';
 import { config } from "../utils/config";
@@ -24,14 +23,14 @@ export class Favorite {
         }
     }
 
-    public isUser(message: Message, fav: Fav) {
-        const check = Object.prototype.hasOwnProperty.call(fav, message.author.id);
+    public isUser(uid: string, fav: Fav) {
+        const check = Object.prototype.hasOwnProperty.call(fav, uid);
         return check
     }
 
-    public notMusic(message: Message, fav: Favorite) {
-        if (!this.isUser(message, this.value)) return true
-        if (fav.value[message.author.id] && fav.value[message.author.id].length == 0) return true
+    public notMusic(uid: string, fav: Favorite) {
+        if (!this.isUser(uid, this.value)) return true
+        if (fav.value[uid] && fav.value[uid].length == 0) return true
         return false
     }
 
@@ -41,19 +40,19 @@ export class Favorite {
         })
     }
 
-    public set(message: Message, song: SongData) {
+    public set(uid: string, song: SongData) {
         //exist user
-        if (this.isUser(message, this.value)) {
-            const userFav = this.value[message.author.id];
+        if (this.isUser(uid, this.value)) {
+            const userFav = this.value[uid];
 
             //add if not fav
             if (!this.isFavorite(userFav, song.url)) {
-                this.value[message.author.id].push(song)
+                this.value[uid].push(song)
             }
         }
         else {
-            this.value[message.author.id] = []
-            this.value[message.author.id].push(song)
+            this.value[uid] = []
+            this.value[uid].push(song)
         }
     }
 

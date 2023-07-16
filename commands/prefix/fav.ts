@@ -1,6 +1,5 @@
 import { CommandPrefix, CommandType } from './../../interfaces/Command';
 import {
-    Collection,
     EmbedBuilder,
     Message, TextChannel, VoiceBasedChannel
 } from "discord.js";
@@ -85,12 +84,12 @@ export default {
 }
 
 function read(message: Message, fav: Favorite) {
-    if (!fav.isUser(message, fav.value))
+    if (!fav.isUser(message.author.id, fav.value))
         return message
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
 
-    let notMusic = fav.notMusic(message, fav)
+    let notMusic = fav.notMusic(message.author.id, fav)
     if (notMusic) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
 
     let favEmbed = new EmbedBuilder()
@@ -106,7 +105,7 @@ function read(message: Message, fav: Favorite) {
 function play(fav: Favorite, arrMsg: string[], message: Message, queue: MusicQueue | MusicQueuePrefix | undefined, channel: VoiceBasedChannel) {
 
     //not fav then exception
-    let notMusic = fav.notMusic(message, fav)
+    let notMusic = fav.notMusic(message.author.id, fav)
     if (notMusic) return message.reply({ content: i18n.__("favorite.notFavorite") }).catch(console.error);
 
     let lstFav: Song[] = []
@@ -138,7 +137,7 @@ async function add(fav: Favorite, arrMsg: string[], message: Message, queue: Mus
         let song;
         try {
             song = await Song.from(arrMsg[1], arrMsg[1]);
-            fav.set(message, song)
+            fav.set(message.author.id, song)
         } catch (error: any) {
             if (error.name == "NoResults")
                 return message
@@ -155,7 +154,7 @@ async function add(fav: Favorite, arrMsg: string[], message: Message, queue: Mus
     }
     else if (queue) {
         queue.songs.forEach((value) => {
-            fav.set(message, value)
+            fav.set(message.author.id, value)
         })
     }
     else {
@@ -171,7 +170,7 @@ async function add(fav: Favorite, arrMsg: string[], message: Message, queue: Mus
 }
 
 function remove(fav: Favorite, arrMsg: string[], message: Message) {
-    if (!fav.isUser(message, fav.value))
+    if (!fav.isUser(message.author.id, fav.value))
         return message
             .reply({ content: i18n.__("favorite.notFavorite") })
             .catch(console.error);
