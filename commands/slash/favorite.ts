@@ -2,7 +2,7 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel, VoiceBasedChannel } from "discord.js";
 import { Favorite } from '../../structs/Favorite';
-import { Command, CommandPrefix } from '../../interfaces/Command';
+import { Command } from '../../interfaces/Command';
 import { randomColor } from '../../utils/color';
 import { Song, SongData } from '../../structs/Song';
 import { MusicQueue } from '../../structs/MusicQueue';
@@ -113,8 +113,6 @@ function play(fav: Favorite, input: string, interaction: ChatInputCommandInterac
 }
 
 async function add(fav: Favorite, input: string, interaction: ChatInputCommandInteraction, queue: MusicQueue) {
-    interaction.deferReply()
-
     if (input) {
         let song;
         try {
@@ -142,17 +140,11 @@ async function add(fav: Favorite, input: string, interaction: ChatInputCommandIn
         })
     }
     else {
-        interaction.deleteReply()
-        return (interaction.channel as TextChannel)
-            .send({ content: i18n.__("favorite.notPlaying") })
-            .catch(console.error);
+        return interaction.reply({ content: i18n.__("favorite.notPlaying") }).catch(console.error);
     }
 
     fav.save()
-    interaction.deleteReply()
-    return (interaction.channel as TextChannel)
-        .send({ content: i18n.__("favorite.resultAdd") })
-        .catch(console.error);
+    return interaction.reply({ content: i18n.__("favorite.resultAdd") }).catch(console.error);
 }
 
 function remove(fav: Favorite, input: string, interaction: ChatInputCommandInteraction) {
