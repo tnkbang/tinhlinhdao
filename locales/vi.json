@@ -13,8 +13,11 @@
 	"help": {
 		"description": "Hiển thị tất cả câu lệnh sẵn có và mô tả của nó.",
 		"errInput": "Sai cú pháp! Sử dụng `{command}` để lấy thông tin sử dụng.",
-		"embedTitle": "{botname} Help",
+		"embedTitle": "Trợ giúp của {botname}",
+		"embedTitleCmdType": "Danh sách câu lệnh của {type}",
+		"embedTitleCmdName": "Thông tin của lệnh {name}",
 		"embedDescription": "Hiển thị tất cả câu lệnh sẵn có của {title}.",
+		"embedNotValue": "Lỗi nhập vào",
 		"notValue": "Không tìm thấy thông tin của từ khóa **{title}**.",
 		"fieldsList": "Xem tất cả các lệnh của bot.",
 		"fieldsAdmin": "Xem bộ lệnh mà chỉ người quản lý bot mới có thể dùng.",

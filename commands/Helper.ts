@@ -16,7 +16,6 @@ import { TimeZone } from "../structs/TimeZone";
 
 function setHelp(type: string) {
     let helpEmbed = new EmbedBuilder()
-        .setTitle(i18n.__mf("help.embedTitle", { botname: bot.client.user!.username }))
         .setDescription(i18n.__mf("help.embedDescription", { title: type }))
         .setColor(randomColor());
 
@@ -24,6 +23,7 @@ function setHelp(type: string) {
     if (!type) {
         const cmdHelp = bot.prefixCommandsMap.get('help')
 
+        helpEmbed.setTitle(i18n.__mf("help.embedTitle", { botname: bot.client.user!.username }))
         helpEmbed.setDescription(cmdHelp?.data?.description || '')
         helpEmbed.addFields(cmdHelp?.data?.fields || [])
         helpEmbed.setTimestamp();
@@ -42,6 +42,7 @@ function setHelp(type: string) {
             });
         });
 
+        helpEmbed.setTitle(i18n.__mf("help.embedTitleCmdType", { type: type }))
         helpEmbed.setTimestamp();
         return helpEmbed
     }
@@ -49,10 +50,14 @@ function setHelp(type: string) {
     //with prefix command
     const cmd = bot.prefixCommandsMap.get(type)
     if (cmd) {
+        helpEmbed.setTitle(i18n.__mf("help.embedTitleCmdName", { name: type }))
         helpEmbed.setDescription(cmd?.data?.description || '')
         helpEmbed.addFields(bot.prefixCommandsMap.get(type)?.data?.fields || [])
     }
-    else helpEmbed.setDescription(i18n.__mf("help.notValue", { title: type }))
+    else {
+        helpEmbed.setTitle(i18n.__("help.embedNotValue"))
+        helpEmbed.setDescription(i18n.__mf("help.notValue", { title: type }))
+    }
 
     helpEmbed.setTimestamp();
     return helpEmbed
