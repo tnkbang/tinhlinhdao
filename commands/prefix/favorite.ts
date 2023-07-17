@@ -1,10 +1,10 @@
-import { CommandPrefix, CommandType } from './../../interfaces/Command';
+import { CommandPrefix, CommandType } from '../../interfaces/Command';
 import {
     EmbedBuilder,
     Message, TextChannel, VoiceBasedChannel
 } from "discord.js";
 import { Favorite } from "../../structs/Favorite";
-import { bot } from './../../index';
+import { bot } from '../../index';
 import { i18n } from "../../utils/i18n";
 import { MusicQueue } from "../../structs/MusicQueue";
 import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
