@@ -2,6 +2,7 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { config } from '../../utils/config';
 import { Message, MessageType } from 'discord.js'
+import { Icon } from '../../utils/icon';
 
 const prefix = config.PREFIX
 
@@ -24,7 +25,9 @@ async function onRequestMessage(message: Message) {
     if (!bot.prefixCommandsMap.get(command))
         return message.reply({ content: i18n.__mf("help.errInput", { command: `${prefix}help` }) }).catch(console.error);
 
-    return await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg)
+    message.react(Icon.Wait).catch(console.error)
+    await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg)
+    return message.reactions.removeAll()
 }
 
 export default onRequestMessage

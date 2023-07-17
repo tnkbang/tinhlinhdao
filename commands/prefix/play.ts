@@ -10,6 +10,7 @@ import { MusicQueuePrefix } from "../../structs/MusicQueuePrefix";
 import { DiscordGatewayAdapterCreator, joinVoiceChannel } from '@discordjs/voice';
 import playlist from "./playlist";
 import { CommandType } from "../../interfaces/Command";
+import { Icon } from "../../utils/icon";
 
 export default {
     data: {
@@ -51,13 +52,9 @@ export default {
 
         const url = argSongName;
 
-        if (!isSearch) {
-            await message.react('⏳').catch(console.error)
-        }
-
         // Start the playlist if playlist url was provided
         if (playlistPattern.test(url)) {
-            await message.react('🔗').catch(console.error)
+            await message.react(Icon.Links).catch(console.error)
 
             const arrMsg = message.content.split(' ')
             return playlist.execute(message, message.content.replace(arrMsg[0], '').trim())

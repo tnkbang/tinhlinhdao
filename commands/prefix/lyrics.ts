@@ -25,8 +25,6 @@ export default {
 
         if (!queue || !queue.songs.length) return i18n.__("lyrics.errorNotQueue")
 
-        await message.reply("⏳ Loading...").catch(console.error);
-
         let lyrics = null;
         const title = queue.songs[0].title;
 
@@ -43,7 +41,6 @@ export default {
             .setColor(randomColor())
             .setTimestamp();
 
-        await message.delete().catch(console.error)
         return message.reply({ content: "", embeds: [lyricsEmbed] }).catch(console.error);
     }
 }
