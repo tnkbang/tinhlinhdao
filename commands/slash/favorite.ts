@@ -15,8 +15,8 @@ export default {
         .addStringOption((option) => option.setName("args")
             .setDescription(i18n.__("favorite.inputArgs"))),
     async execute(interaction: ChatInputCommandInteraction) {
-        const type = interaction.options.getString('action')
-        const input = interaction.options.getString('args')
+        const type = interaction.options.getString('action')?.toLowerCase()
+        const input = interaction.options.getString('args')?.toLowerCase()
 
         createCollectionCommand()
         const fav = new Favorite();

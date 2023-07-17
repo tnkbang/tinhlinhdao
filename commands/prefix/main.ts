@@ -19,12 +19,12 @@ async function onRequestMessage(message: Message) {
     else command = arrMsg.shift()?.toLowerCase() || ""
     if (command == "") return
 
-    const inputMsg = arrMsg.toString().replaceAll(',', ' ')
+    const inputMsg = arrMsg.toString().replaceAll(',', ' ').trim().toLowerCase()
 
     if (!bot.prefixCommandsMap.get(command))
         return message.reply({ content: i18n.__mf("help.errInput", { command: `${prefix}help` }) }).catch(console.error);
 
-    return await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg.trim())
+    return await bot.prefixCommandsMap.get(command)!.execute(message, inputMsg)
 }
 
 export default onRequestMessage
