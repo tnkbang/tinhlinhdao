@@ -90,6 +90,9 @@ export class MusicQueue {
 
     this.player.on("stateChange" as any, async (oldState: AudioPlayerState, newState: AudioPlayerState) => {
       if (oldState.status !== AudioPlayerStatus.Idle && newState.status === AudioPlayerStatus.Idle) {
+        //clear colection react icon
+        if (this.collector) this.collector.stop()
+
         if (this.loop && this.songs.length) {
           this.songs.push(this.songs.shift()!);
         } else {
@@ -141,7 +144,6 @@ export class MusicQueue {
         } catch { }
       }
       bot.queues.delete(this.interaction.guild!.id);
-      this.collector.stop();
 
       !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
     }, config.STAY_TIME * 1);
@@ -221,7 +223,6 @@ export class MusicQueue {
         case "⏭":
           reaction.users.remove(user).catch(console.error);
           await this.bot.slashCommandsMap.get("skip")!.execute(this.interaction);
-          this.collector.stop();
           break;
 
         case "⏯":
@@ -281,7 +282,6 @@ export class MusicQueue {
         case "⏹":
           reaction.users.remove(user).catch(console.error);
           await this.bot.slashCommandsMap.get("stop")!.execute(this.interaction, true);
-          this.collector.stop();
           break;
 
         default:

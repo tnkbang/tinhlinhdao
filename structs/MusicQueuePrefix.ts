@@ -90,6 +90,9 @@ export class MusicQueuePrefix {
 
         this.player.on("stateChange" as any, async (oldState: AudioPlayerState, newState: AudioPlayerState) => {
             if (oldState.status !== AudioPlayerStatus.Idle && newState.status === AudioPlayerStatus.Idle) {
+                //clear colection react icon
+                if (this.collector) this.collector.stop()
+
                 if (this.loop && this.songs.length) {
                     this.songs.push(this.songs.shift()!);
                 } else {
@@ -141,7 +144,6 @@ export class MusicQueuePrefix {
                 } catch { }
             }
             bot.queues.delete(this.message.guild!.id);
-            this.collector.stop();
 
             !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
         }, config.STAY_TIME * 1);
@@ -222,7 +224,6 @@ export class MusicQueuePrefix {
                 case "⏭":
                     reaction.users.remove(user).catch(console.error);
                     await this.bot.prefixCommandsMap.get("skip")!.execute(playingMessage, '', member)
-                    this.collector.stop();
                     break;
 
                 case "⏯":
@@ -282,7 +283,6 @@ export class MusicQueuePrefix {
                 case "⏹":
                     reaction.users.remove(user).catch(console.error);
                     await this.bot.prefixCommandsMap.get("stop")!.execute(playingMessage, '', member, true)
-                    this.collector.stop();
                     break;
 
                 default:
