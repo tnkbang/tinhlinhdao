@@ -19,6 +19,7 @@ import { config } from "../utils/config";
 import { i18n } from "../utils/i18n";
 import { canModifyQueue } from "../utils/queue";
 import { Song } from "./Song";
+import { Icon } from "../utils/icon";
 
 const wait = promisify(setTimeout);
 
@@ -185,14 +186,14 @@ export class MusicQueue {
     try {
       playingMessage = await this.textChannel.send((newState.resource as AudioResource<Song>).metadata.startMessage());
 
-      await playingMessage.react("⏭");
-      await playingMessage.react("⏯");
-      await playingMessage.react("🔇");
-      await playingMessage.react("🔉");
-      await playingMessage.react("🔊");
-      await playingMessage.react("🔁");
-      await playingMessage.react("🔀");
-      await playingMessage.react("⏹");
+      await playingMessage.react(Icon.Skip);
+      await playingMessage.react(Icon.Stop);
+      await playingMessage.react(Icon.Repeat);
+      await playingMessage.react(Icon.Shuffle);
+      await playingMessage.react(Icon.VolumeMute);
+      await playingMessage.react(Icon.VolumeDown);
+      await playingMessage.react(Icon.VolumeUp);
+      await playingMessage.react(Icon.Pause);
     } catch (error: any) {
       console.error(error);
       this.textChannel.send(error.message);
@@ -214,28 +215,28 @@ export class MusicQueue {
         value: user
       })
 
-      if (!song.checkOnVoice(this.interaction)) {
-        reaction.users.remove(user).catch(console.error);
-        return;
-      }
+      //remove reaction and check if not voice return
+      reaction.users.remove(user).catch(console.error);
+      if (!song.checkOnVoice(this.interaction)) return
 
-      switch (reaction.emoji.name) {
-        case "⏭":
-          reaction.users.remove(user).catch(console.error);
+      switch (reaction.emoji.id) {
+        case Icon.Skip:
           await this.bot.slashCommandsMap.get("skip")!.execute(this.interaction);
           break;
 
-        case "⏯":
-          reaction.users.remove(user).catch(console.error);
-          if (this.player.state.status == AudioPlayerStatus.Playing) {
-            await this.bot.slashCommandsMap.get("pause")!.execute(this.interaction);
-          } else {
-            await this.bot.slashCommandsMap.get("resume")!.execute(this.interaction);
-          }
+        case Icon.Play:
+          await this.bot.slashCommandsMap.get("resume")!.execute(this.interaction);
+          await playingMessage.reactions.cache.get(Icon.Play)?.remove()
+          await playingMessage.react(Icon.Pause);
           break;
 
-        case "🔇":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.Pause:
+          await this.bot.slashCommandsMap.get("pause")!.execute(this.interaction);
+          await playingMessage.reactions.cache.get(Icon.Pause)?.remove()
+          await playingMessage.react(Icon.Play);
+          break;
+
+        case Icon.VolumeMute:
           if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
           this.muted = !this.muted;
           if (this.muted) {
@@ -247,8 +248,7 @@ export class MusicQueue {
           }
           break;
 
-        case "🔉":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.VolumeDown:
           if (this.volume == 0) return;
           if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
           this.volume = Math.max(this.volume - 10, 0);
@@ -258,8 +258,7 @@ export class MusicQueue {
             .catch(console.error);
           break;
 
-        case "🔊":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.VolumeUp:
           if (this.volume == 100) return;
           if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
           this.volume = Math.min(this.volume + 10, 100);
@@ -269,18 +268,15 @@ export class MusicQueue {
             .catch(console.error);
           break;
 
-        case "🔁":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.Repeat:
           await this.bot.slashCommandsMap.get("loop")!.execute(this.interaction);
           break;
 
-        case "🔀":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.Shuffle:
           await this.bot.slashCommandsMap.get("shuffle")!.execute(this.interaction);
           break;
 
-        case "⏹":
-          reaction.users.remove(user).catch(console.error);
+        case Icon.Stop:
           await this.bot.slashCommandsMap.get("stop")!.execute(this.interaction, true);
           break;
 

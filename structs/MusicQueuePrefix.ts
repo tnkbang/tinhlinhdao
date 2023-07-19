@@ -19,6 +19,7 @@ import { config } from "../utils/config";
 import { i18n } from "../utils/i18n";
 import { canModifyQueue } from "../utils/queue";
 import { Song } from "./Song";
+import { Icon } from "../utils/icon";
 
 const wait = promisify(setTimeout);
 
@@ -186,14 +187,14 @@ export class MusicQueuePrefix {
             playingMessage = await this.textChannel.send((newState.resource as AudioResource<Song>).metadata.startMessage());
             if (this.message == undefined) this.message = playingMessage
 
-            await playingMessage.react("⏭");
-            await playingMessage.react("⏯");
-            await playingMessage.react("🔇");
-            await playingMessage.react("🔉");
-            await playingMessage.react("🔊");
-            await playingMessage.react("🔁");
-            await playingMessage.react("🔀");
-            await playingMessage.react("⏹");
+            await playingMessage.react(Icon.Skip);
+            await playingMessage.react(Icon.Stop);
+            await playingMessage.react(Icon.Repeat);
+            await playingMessage.react(Icon.Shuffle);
+            await playingMessage.react(Icon.VolumeMute);
+            await playingMessage.react(Icon.VolumeDown);
+            await playingMessage.react(Icon.VolumeUp);
+            await playingMessage.react(Icon.Pause);
         } catch (error: any) {
             console.error(error);
             this.textChannel.send(error.message);
@@ -215,28 +216,28 @@ export class MusicQueuePrefix {
                 value: user
             })
 
-            if (!song.checkOnVoice(this.message)) {
-                reaction.users.remove(user).catch(console.error);
-                return;
-            }
+            //remove reaction and check if not voice return
+            reaction.users.remove(user).catch(console.error);
+            if (!song.checkOnVoice(this.message)) return
 
-            switch (reaction.emoji.name) {
-                case "⏭":
-                    reaction.users.remove(user).catch(console.error);
+            switch (reaction.emoji.id) {
+                case Icon.Skip:
                     await this.bot.prefixCommandsMap.get("skip")!.execute(playingMessage, '', member)
                     break;
 
-                case "⏯":
-                    reaction.users.remove(user).catch(console.error);
-                    if (this.player.state.status == AudioPlayerStatus.Playing) {
-                        await this.bot.prefixCommandsMap.get("pause")!.execute(playingMessage, '', member)
-                    } else {
-                        await this.bot.prefixCommandsMap.get("resume")!.execute(playingMessage, '', member)
-                    }
+                case Icon.Play:
+                    await this.bot.prefixCommandsMap.get("resume")!.execute(playingMessage, '', member)
+                    await playingMessage.reactions.cache.get(Icon.Play)?.remove()
+                    await playingMessage.react(Icon.Pause);
                     break;
 
-                case "🔇":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.Pause:
+                    await this.bot.prefixCommandsMap.get("pause")!.execute(playingMessage, '', member)
+                    await playingMessage.reactions.cache.get(Icon.Pause)?.remove()
+                    await playingMessage.react(Icon.Play);
+                    break;
+
+                case Icon.VolumeMute:
                     if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
                     this.muted = !this.muted;
                     if (this.muted) {
@@ -248,8 +249,7 @@ export class MusicQueuePrefix {
                     }
                     break;
 
-                case "🔉":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.VolumeDown:
                     if (this.volume == 0) return;
                     if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
                     this.volume = Math.max(this.volume - 10, 0);
@@ -259,8 +259,7 @@ export class MusicQueuePrefix {
                         .catch(console.error);
                     break;
 
-                case "🔊":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.VolumeUp:
                     if (this.volume == 100) return;
                     if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
                     this.volume = Math.min(this.volume + 10, 100);
@@ -270,18 +269,15 @@ export class MusicQueuePrefix {
                         .catch(console.error);
                     break;
 
-                case "🔁":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.Repeat:
                     await this.bot.prefixCommandsMap.get("loop")!.execute(playingMessage, '', member)
                     break;
 
-                case "🔀":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.Shuffle:
                     await this.bot.prefixCommandsMap.get("shuffle")!.execute(playingMessage, '', member)
                     break;
 
-                case "⏹":
-                    reaction.users.remove(user).catch(console.error);
+                case Icon.Stop:
                     await this.bot.prefixCommandsMap.get("stop")!.execute(playingMessage, '', member, true)
                     break;
 
