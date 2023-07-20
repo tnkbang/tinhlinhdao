@@ -9,6 +9,7 @@ import {
 import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { generateQueueEmbed } from "../Helper";
+import { Icon } from "../../utils/icon";
 
 export default {
     data: new SlashCommandBuilder().setName("queue").setDescription(i18n.__("queue.description")),
@@ -35,16 +36,16 @@ export default {
         if (embeds.length == 1) return;
 
         try {
-            await queueEmbed.react("⬅️");
-            await queueEmbed.react("⏹");
-            await queueEmbed.react("➡️");
+            await queueEmbed.react(Icon.LeftArrow);
+            await queueEmbed.react(Icon.Stop);
+            await queueEmbed.react(Icon.RightArrow);
         } catch (error: any) {
             console.error(error);
             (interaction.channel as TextChannel).send(error.message).catch(console.error);
         }
 
         const filter = (reaction: MessageReaction, user: User) =>
-            ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && interaction.user.id === user.id;
+            [Icon.LeftArrow, Icon.Stop, Icon.RightArrow].includes(reaction.emoji.id!) && interaction.user.id === user.id;
 
         const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
 
@@ -54,7 +55,7 @@ export default {
                     return reaction.users.remove(user)
                 }
 
-                if (reaction.emoji.name === "➡️") {
+                if (reaction.emoji.id === Icon.RightArrow) {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
                         queueEmbed.edit({
@@ -62,7 +63,7 @@ export default {
                             embeds: [embeds[currentPage]]
                         });
                     }
-                } else if (reaction.emoji.name === "⬅️") {
+                } else if (reaction.emoji.id === Icon.LeftArrow) {
                     if (currentPage !== 0) {
                         --currentPage;
                         queueEmbed.edit({

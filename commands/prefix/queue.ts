@@ -8,6 +8,7 @@ import { bot } from './../../index';
 import { i18n } from "../../utils/i18n";
 import { generateQueueEmbed } from "../Helper";
 import { CommandType } from "../../interfaces/Command";
+import { Icon } from "../../utils/icon";
 
 export default {
     data: {
@@ -40,16 +41,16 @@ export default {
         if (embeds.length == 1) return;
 
         try {
-            await editMsg.react("⬅️");
-            await editMsg.react("⏹");
-            await editMsg.react("➡️");
+            await editMsg.react(Icon.LeftArrow);
+            await editMsg.react(Icon.Stop);
+            await editMsg.react(Icon.RightArrow);
         } catch (error: any) {
             console.error(error);
             (message.channel as TextChannel).send(error.message).catch(console.error);
         }
 
         const filter = (reaction: MessageReaction, user: User) =>
-            ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name!) && message.author.id === user.id;
+            [Icon.LeftArrow, Icon.Stop, Icon.RightArrow].includes(reaction.emoji.id!) && message.author.id === user.id;
 
         const collector = editMsg.createReactionCollector({ filter, time: 60000 });
 
@@ -59,7 +60,7 @@ export default {
                     return reaction.users.remove(user)
                 }
 
-                if (reaction.emoji.name === "➡️") {
+                if (reaction.emoji.id === Icon.RightArrow) {
                     if (currentPage < embeds.length - 1) {
                         currentPage++;
                         editMsg.edit({
@@ -67,7 +68,7 @@ export default {
                             embeds: [embeds[currentPage]]
                         });
                     }
-                } else if (reaction.emoji.name === "⬅️") {
+                } else if (reaction.emoji.id === Icon.LeftArrow) {
                     if (currentPage !== 0) {
                         --currentPage;
                         editMsg.edit({
