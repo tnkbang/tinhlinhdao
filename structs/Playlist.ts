@@ -1,8 +1,7 @@
 import youtube, { Playlist as YoutubePlaylist } from "youtube-sr";
 import { config } from "../utils/config";
 import { Song } from "./Song";
-
-const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/i;
+import { playlistPattern } from "../utils/patterns";
 
 export class Playlist {
   public data: YoutubePlaylist;
@@ -29,7 +28,7 @@ export class Playlist {
 
     if (match) search = url = match[1]
 
-    const urlValid = pattern.test(url);
+    const urlValid = playlistPattern.test(url);
     let playlist;
 
     if (urlValid) {
