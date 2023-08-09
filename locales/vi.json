@@ -108,7 +108,8 @@
 		"fetchingPlaylist": "⌛ đang tìm nạp danh sách nhạc...",
 		"playlistCharLimit": "\nDanh sách nhạc lớn hơn giới hạn từ có thể gửi trong một tin nhắn...",
 		"startedPlaylist": "<@{author}> Bắt đầu phát danh sách nhạc",
-		"cantJoinChannel": "Không thể tham gia kênh thoại: {error}"
+		"cantJoinChannel": "Không thể tham gia kênh thoại: {error}",
+		"titleMixed": "Danh sách kết hợp - Mix"
 	},
 	"pruning": {
 		"description": "Tùy chỉnh xóa tin nhắn của bot",
