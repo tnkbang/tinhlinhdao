@@ -31,6 +31,6 @@ export default {
         ]
     },
     async execute(message: Message, input: string) {
-        return message.reply({ embeds: [setHelp(input)] }).catch(console.error);
+        return message.reply({ embeds: [setHelp(input.toLowerCase())] }).catch(console.error);
     }
 }

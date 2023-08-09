@@ -64,7 +64,7 @@ export default {
 
         if (!input) return read(message, fav)
 
-        const arrMsg = input.split(' ')
+        const arrMsg = input.toLowerCase().split(' ')
 
         if (!bot.favCommandsMap.get(bot.prefix + arrMsg[0])) return
         return await bot.favCommandsMap.get(bot.prefix + arrMsg[0])?.execute(fav, arrMsg, message, queue, channel)

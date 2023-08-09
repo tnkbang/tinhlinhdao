@@ -23,7 +23,7 @@ export default {
     },
     execute(message: Message, input: string) {
         const ownerID = config.OWNER
-        const arrMsg = input.split(' ')
+        const arrMsg = input.toLowerCase().split(' ')
         const type = arrMsg[0]
         const value = input.replace(arrMsg[0], '').trim()
 
