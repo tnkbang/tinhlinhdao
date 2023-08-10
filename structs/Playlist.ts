@@ -1,4 +1,4 @@
-import youtube, { Video, Playlist as YoutubePlaylist } from "youtube-sr";
+import youtube, { Playlist as YoutubePlaylist } from "youtube-sr";
 import { config } from "../utils/config";
 import { Song } from "./Song";
 import { playlistPattern } from "../utils/patterns";
@@ -35,17 +35,16 @@ export class Playlist {
     if (urlValid) {
       playlist = await youtube.getPlaylist(search);
     } else {
-      const result = await youtube.searchOne(search, "playlist");
-      if (result) playlist = await youtube.getPlaylist(result.url!);
+      const pls = await youtube.searchOne(search, "playlist");
+      if (pls) playlist = await youtube.getPlaylist(pls.url!);
       else {
         //can't find playlist then get from id video
         playlist.title = i18n.__("playlist.titleMixed");
         playlist.url = url;
 
         //get video from mix playlist
-        (await youtube.search(search, { type: 'video', limit: 1 })).map(v => {
-          playlist.videos.push(new Video(v))
-        })
+        const video = await youtube.searchOne(search, 'video');
+        if (video) playlist.videos.push(await youtube.getVideo(video.url))
       }
     }
 

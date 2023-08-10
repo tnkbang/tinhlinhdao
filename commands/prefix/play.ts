@@ -55,9 +55,7 @@ export default {
         // Start the playlist if playlist url was provided
         if (playlistPattern.test(url)) {
             await message.react(Icon.Links).catch(console.error)
-
-            const arrMsg = message.content.split(' ')
-            return playlist.execute(message, message.content.replace(arrMsg[0], '').trim())
+            return playlist.execute(message, url)
         }
 
         let song;
