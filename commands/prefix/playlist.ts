@@ -72,9 +72,7 @@ export default {
             });
 
             bot.queues.set(message.guild!.id, newQueue);
-            newQueue.songs.push(...playlist.videos);
-
-            newQueue.enqueue(playlist.videos[0]);
+            newQueue.enqueue(...playlist.videos);
         }
 
         let playlistEmbed = new EmbedBuilder()
