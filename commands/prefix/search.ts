@@ -44,10 +44,10 @@ export default {
         } catch (error: any) {
             console.error(error);
 
-            message.reply({ content: i18n.__("common.errorCommand") }).catch(console.error);
+            return message.reply({ content: i18n.__("common.errorCommand") }).catch(console.error);
         }
 
-        if (!results) return;
+        if (!results || !results[0]) return message.reply({ content: i18n.__("search.noResults") });
 
         const options = results!.map((video) => {
             return {

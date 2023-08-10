@@ -34,10 +34,10 @@ export default {
         } catch (error: any) {
             console.error(error);
 
-            interaction.editReply({ content: i18n.__("common.errorCommand") }).catch(console.error);
+            return interaction.editReply({ content: i18n.__("common.errorCommand") }).catch(console.error);
         }
 
-        if (!results) return;
+        if (!results || !results[0]) return interaction.editReply({ content: i18n.__("search.noResults") });
 
         const options = results!.map((video) => {
             return {

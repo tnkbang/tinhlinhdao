@@ -146,7 +146,8 @@
 		"resultEmbedTitle": "**Gửi số bài hát mà bạn chọn trong danh sách ở trên**",
 		"resultEmbedDesc": "Kết quả tìm kiểm cho: {search}",
 		"optionQuery": "Search query",
-		"errorInput": "Tham số nhập vào không hợp lệ !"
+		"errorInput": "Tham số nhập vào không hợp lệ !",
+		"noResults": "Không tìm thấy kết quả, vui lòng thử lại sau !"
 	},
 	"shuffle": {
 		"description": "Đảo hàng đợi",
