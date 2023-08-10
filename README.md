@@ -1,7 +1,7 @@
 # tinhlinhdao
 
-Discord Bot built with discord.js for <a href="https://discord.gg/rgQG6jt">Luan Hoi - Tuyet Tinh Dao</a> server.
-</br>
+Discord Bot built with discord.js for play music and misc command.
+<br/>
 Music playback function referenced by <a href="https://github.com/eritislami/evobot">evobot</a>.
 <br/>
 Reaction emoij referenced <a href="https://www.flaticon.com/authors/kp-arts/flat-gradient">KP Arts Flat Gradient</a>.
