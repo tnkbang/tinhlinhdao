@@ -47,19 +47,13 @@ export class Playlist {
     //can't find playlist when search
     let playlist = new YoutubePlaylist()
     playlist.title = i18n.__("playlist.titleMixed");
+    playlist.url = `https://www.youtube.com/results?search_query=${search.replace(' ', '+')}`;
 
     //search query is mix playlist url
-    if (isURL.test(url)) {
-      playlist.url = url;
-      const video = await youtube.searchOne(search, 'video');
-      if (video) playlist.videos.push(await youtube.getVideo(video.url))
-    }
-    else {
-      //search query is string then search 5 videos
-      playlist.url = `https://www.youtube.com/results?search_query=${search.replace(' ', '+')}`;
-      const videos = await youtube.search(search, { type: 'video', limit: 5 })
-      if (videos) playlist.videos.push(...videos)
-    }
+    if (isURL.test(url)) search = (await youtube.searchOne(search, 'video')).title!;
+
+    const videos = await youtube.search(search, { type: 'video', limit: 5 })
+    if (videos) playlist.videos.push(...videos)
 
     return playlist
   }
