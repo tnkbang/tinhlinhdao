@@ -50,9 +50,9 @@ function setHelp(type: string) {
     //with prefix command
     const cmd = bot.prefixCommandsMap.get(type)
     if (cmd) {
-        helpEmbed.setTitle(i18n.__mf("help.embedTitleCmdName", { name: type }))
-        helpEmbed.setDescription(cmd?.data?.description || '')
-        helpEmbed.addFields(bot.prefixCommandsMap.get(type)?.data?.fields || [])
+        helpEmbed.setTitle(i18n.__mf("help.embedTitleCmdName", { name: cmd.data?.name }))
+        helpEmbed.setDescription(cmd.data?.description || '')
+        helpEmbed.addFields(cmd.data?.fields || [])
     }
     else {
         helpEmbed.setTitle(i18n.__("help.embedNotValue"))
