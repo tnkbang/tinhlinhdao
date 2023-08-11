@@ -27,7 +27,7 @@ export default {
         if (!playlistSlotArg || isNaN(playlistSlotArg))
             return message
                 .reply({
-                    content: i18n.__mf("skipto.usageReply", { prefix: bot.prefix, name: module.exports.name })
+                    content: i18n.__mf("skipto.usageReply", { prefix: bot.prefix, name: module.exports.default.data.name })
                 })
                 .catch(console.error);
 
