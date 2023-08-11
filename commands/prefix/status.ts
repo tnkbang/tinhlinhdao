@@ -17,7 +17,7 @@ export default {
                 value: `• **${bot.prefix}status <type> <msg>**` + '\n' +
                     `• **${bot.prefix}stt <type> <msg>**` + '\n' +
                     `• **<type>** ` + i18n.__("status.fieldsType") + '\n' +
-                    `• **<type>** ` + i18n.__("status.fieldsMsg")
+                    `• **<msg>** ` + i18n.__("status.fieldsMsg")
             }
         ]
     },
