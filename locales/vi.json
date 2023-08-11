@@ -195,7 +195,8 @@
 		"errorCommand": "Có lỗi xảy ra khi đang cố gắng thực hiện yêu cầu của bạn, vui lòng thử lại sau ít phút.",
 		"fieldsUse": "Cách sử dụng",
 		"fieldsShort": "Cách dùng nhanh",
-		"fieldsExample": "Ví dụ"
+		"fieldsExample": "Ví dụ",
+		"errInput": "Tham số nhập vào không hợp lệ !"
 	},
 	"uptime": {
 		"description": "Kiểm tra thời gian hoạt động của bot",

@@ -35,6 +35,10 @@ export default {
         if (!input) return message.reply(i18n.__mf("timezone.replyZone",
             { zone: (userZone > 0 ? '+' : '') + userZone }))
 
+        //valid input
+        if (!Number.parseInt(input))
+            return message.reply({ content: i18n.__("common.errInput") }).catch(console.error);
+
         userZone = Number.parseInt(input)
         zones.set(message.author.id, userZone)
         zones.save()
